@@ -7,9 +7,10 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_vehicleObject"];
-if !(isServer) exitWith {true};
-_vehicleObject = _this select 0;
-_vehicleObject call ExileServer_object_vehicle_remove;
-_vehicleObject setVariable ["ExileDiedAt", time];
-true
+private["_time1","_time2","_time"];
+_time1 = _this select 0;
+_time2 = _this select 1;
+_time1 = _time1 call ExileServer_util_time_toMinutes;
+_time2 = _time2 call ExileServer_util_time_toMinutes;
+_time = _time1 + _time2;
+_time

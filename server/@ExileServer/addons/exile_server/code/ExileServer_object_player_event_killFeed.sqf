@@ -7,9 +7,8 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_vehicleObject"];
-if !(isServer) exitWith {true};
-_vehicleObject = _this select 0;
-_vehicleObject call ExileServer_object_vehicle_remove;
-_vehicleObject setVariable ["ExileDiedAt", time];
+if(ExileServerKillFeed)then
+{
+	_this call ExileServer_system_network_send_broadcast;
+};
 true

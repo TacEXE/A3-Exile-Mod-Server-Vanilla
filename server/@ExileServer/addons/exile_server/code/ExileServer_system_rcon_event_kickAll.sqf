@@ -7,9 +7,9 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_vehicleObject"];
-if !(isServer) exitWith {true};
-_vehicleObject = _this select 0;
-_vehicleObject call ExileServer_object_vehicle_remove;
-_vehicleObject setVariable ["ExileDiedAt", time];
+private["_i"];
+for "_i" from 0 to 99 do 
+{
+	format ["#kick %1",_i] call ExileServer_system_rcon_event_sendCommand;
+};
 true

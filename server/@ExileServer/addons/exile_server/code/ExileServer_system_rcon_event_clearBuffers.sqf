@@ -7,17 +7,24 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_vehicleObject","_removeFromQueue"];
+private["_playerObject","_vehicleObject"];
+if!(ExileSystemPlayerSaveASYNC isEqualTo [])then
 {
-	_vehicleObject = _x;
-	_removeFromQueue = false;
-	if (isNull _vehicleObject) then
 	{
-		_removeFromQueue = true;
-	}
-	else 
+		_playerObject = _x;
+		if(!isNull _playerObject)then
+		{
+			_playerObject call ExileServer_object_player_database_update;
+		};
+		ExileSystemPlayerSaveASYNC deleteAt _forEachIndex;
+	} 
+	forEach ExileSystemPlayerSaveASYNC;
+};
+if!(ExileServerVehicleSaveQueue isEqualTo [])then
+{
 	{
-		if (diag_tickTime - (_vehicleObject getVariable ["ExileVehicleSaveQueuedAt", 30]) > 60) then
+		_vehicleObject = _x;
+		if(!isNull _vehicleObject)then
 		{
 			if(_vehicleObject getVariable ["ExileIsContainer",false])then
 			{
@@ -34,14 +41,9 @@ private["_vehicleObject","_removeFromQueue"];
 					_vehicleObject call ExileServer_object_vehicle_database_update;
 				};
 			};
-			_vehicleObject setVariable ["ExileVehicleSaveQueuedAt", nil];
-			_removeFromQueue = true;
 		};
-	};
-	if (_removeFromQueue) then
-	{
 		ExileServerVehicleSaveQueue deleteAt _forEachIndex;
-	};
-}
-forEach ExileServerVehicleSaveQueue;
+	}
+	forEach ExileServerVehicleSaveQueue;
+};
 true
