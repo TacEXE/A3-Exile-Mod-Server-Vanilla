@@ -1,3 +1,12 @@
+////////////////////////////////////////////////////////////////////
+//DeRap: Produced from mikero's Dos Tools Dll version 5.20
+//Produced on Sat Aug 29 20:10:57 2015 : Created on Sat Aug 29 20:10:57 2015
+//http://dev-heaven.net/projects/list_files/mikero-pbodll
+////////////////////////////////////////////////////////////////////
+
+#define _ARMA_
+
+//Class C:\Users\TacEXE\Desktop\@ExileServer-0.9.19\mpmissions\Exile.Altis\mission.sqm{
 version = 12;
 class Mission
 {
@@ -24,10 +33,42 @@ class Mission
 	};
 	class Sensors
 	{
-		items = 1;
+		items = 3;
 		class Item0
 		{
 			position[] = {14599.966,22.349989,16797.193};
+			a = 175;
+			b = 175;
+			rectangular = 1;
+			activationBy = "ANY";
+			repeating = 1;
+			interruptable = 1;
+			age = "UNKNOWN";
+			name = "ExileTrader";
+			expCond = "(vehicle player) in thisList";
+			expActiv = "call ExileClient_object_player_event_onEnterSafezone";
+			expDesactiv = "call ExileClient_object_player_event_onLeaveSafezone";
+			class Effects{};
+		};
+		class Item1
+		{
+			position[] = {2998.0603,3.775602,18175.479};
+			a = 175;
+			b = 175;
+			rectangular = 1;
+			activationBy = "ANY";
+			repeating = 1;
+			interruptable = 1;
+			age = "UNKNOWN";
+			name = "ExileTrader";
+			expCond = "(vehicle player) in thisList";
+			expActiv = "call ExileClient_object_player_event_onEnterSafezone";
+			expDesactiv = "call ExileClient_object_player_event_onLeaveSafezone";
+			class Effects{};
+		};
+		class Item2
+		{
+			position[] = {23334.605,4.009558,24188.938};
 			a = 175;
 			b = 175;
 			rectangular = 1;
@@ -1057,7 +1098,7 @@ class Mission
 	};
 	class Markers
 	{
-		items = 7;
+		items = 9;
 		class Item0
 		{
 			position[] = {3874.3633,18.12563,13280.79};
@@ -1105,6 +1146,32 @@ class Mission
 			position[] = {14599.966,22.349989,16797.193};
 			name = "TraderCityMarker";
 			text = "Mafia Trader City";
+			markerType = "ELLIPSE";
+			type = "ExileTraderZone";
+			colorName = "ColorBlue";
+			fillName = "SolidBorder";
+			a = 175;
+			b = 175;
+			drawBorder = 1;
+		};
+		class Item7
+		{
+			position[] = {23334.605,4.009558,24188.938};
+			name = "TraderZoneSilderas";
+			text = "Silderas Trader City";
+			markerType = "ELLIPSE";
+			type = "ExileTraderZone";
+			colorName = "ColorBlue";
+			fillName = "SolidBorder";
+			a = 175;
+			b = 175;
+			drawBorder = 1;
+		};
+		class Item8
+		{
+			position[] = {2998.0603,3.775602,18175.479};
+			name = "TraderZoneFolia";
+			text = "Folia Trader City";
 			markerType = "ELLIPSE";
 			type = "ExileTraderZone";
 			colorName = "ColorBlue";
@@ -1187,3 +1254,4 @@ class OutroLoose
 		forecastFogDecay = 0.013;
 	};
 };
+//};
