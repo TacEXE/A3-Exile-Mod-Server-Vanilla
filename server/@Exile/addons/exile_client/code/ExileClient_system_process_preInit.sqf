@@ -25,6 +25,7 @@ else
 		ExileClientXM8IsMessageVisible = false;
 		ExileClientXM8IsWarningVisible = false;
 		ExileClientXM8IsConfirmVisible = false;
+		ExileClientXM8InputBoxFocused = false;
 		ExileClientLoginHasPlayerResponse = nil;
 		ExileClientSkipNextRespawnEvent = true;
 		ExileClientBleedOutThread = -1;
@@ -73,6 +74,11 @@ else
 		ExileClientConstructionModePhysx = false;
 		ExileClientConstructionLock = false;
 		ExileClientConstructionGrid = [1, 1, 0.25];
+		ExileClientNotificationQueue = [];
+		ExileClientNotificationSlides = [0,1,2,3,4,5,6,7,8,9];
+		ExileClientNotificationIsShown = false;
+		ExileClientNotificationRun = diag_tickTime;
+		ExileLockIsShown = false;
 		[] call ExileClient_object_player_stats_reset;
 		[] call ExileClient_gui_postProcessing_initialize;
 		[] call ExileClient_gui_hud_event_hook;

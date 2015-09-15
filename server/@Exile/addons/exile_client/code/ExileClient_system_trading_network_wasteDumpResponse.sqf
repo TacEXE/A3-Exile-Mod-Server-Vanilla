@@ -21,11 +21,11 @@ if (_responseCode isEqualTo 0) then
 	ExileClientPlayerScore = _newPlayerRespect;
 	if (_respect isEqualTo 0) then
 	{
-		["ItemSoldInformation", [_revenue]] call BIS_fnc_showNotification;
+		["ItemSoldInformation", [_revenue]] call ExileClient_gui_notification_event_addNotification;
 	}
 	else 
 	{
-		["ItemSoldInformationWithRespect", [_revenue, _respect]] call BIS_fnc_showNotification;
+		["ItemSoldInformationWithRespect", [_revenue, _respect]] call ExileClient_gui_notification_event_addNotification;
 	};
 }
 else 

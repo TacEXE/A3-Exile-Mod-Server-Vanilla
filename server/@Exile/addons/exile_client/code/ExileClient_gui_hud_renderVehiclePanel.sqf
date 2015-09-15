@@ -109,7 +109,7 @@ if (diag_tickTime - ExileHudLastVehicleRenderedAt >= 0.1) then
 			_tankSize = ExileHudLastRenderedVehicleFuelTankSize;
 			if (_tankSize > 999) then
 			{
-				_tankSizeString = format ["%1k", [(round _tankSize) / 1000, 1] call ExileClient_util_math_round];
+				_tankSizeString = format ["%1k", [floor (_tankSize / 1000), 1] call ExileClient_util_math_round];
 			}
 			else 
 			{
@@ -118,7 +118,7 @@ if (diag_tickTime - ExileHudLastVehicleRenderedAt >= 0.1) then
 			_fuelRemaining = _fuel * ExileHudLastRenderedVehicleFuelTankSize;
 			if (_fuelRemaining > 999) then
 			{
-				_fuelRemainingString = format ["%1k", [(round _fuelRemaining) / 1000, 1] call ExileClient_util_math_round];
+				_fuelRemainingString = format ["%1k", [round (_fuelRemaining / 1000), 1] call ExileClient_util_math_round];
 			}
 			else 
 			{

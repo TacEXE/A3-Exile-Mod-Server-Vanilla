@@ -10,19 +10,19 @@
 private["_vehicle"];
 if (alive player) then 
 {
-	["SafezoneLeave"] call bis_fnc_showNotification;
-	removeMissionEventHandler ["Draw3D",ExileSafeZoneEspEH];
-	player allowDamage true;
-	player removeEventHandler ["Fired",ExileSafeZoneFiredEH];
-	player addEventHandler ["HandleDamage",{_this call ExileClient_object_player_event_onHandleDamage}];
-	_vehicle = vehicle player;
-	if !(_vehicle isEqualTo player) then
+	["SafezoneLeave"] call ExileClient_gui_notification_event_addNotification;
+};
+removeMissionEventHandler ["Draw3D",ExileSafeZoneEspEH];
+player allowDamage true;
+player removeEventHandler ["Fired",ExileSafeZoneFiredEH];
+player addEventHandler ["HandleDamage",{_this call ExileClient_object_player_event_onHandleDamage}];
+_vehicle = vehicle player;
+if !(_vehicle isEqualTo player) then
+{
+	if (local _vehicle) then
 	{
-		if (local _vehicle) then
-		{
-			_vehicle allowDamage true;
-		};		
-	};
+		_vehicle allowDamage true;
+	};		
 };
 ExilePlayerInSafezone = false;
 true

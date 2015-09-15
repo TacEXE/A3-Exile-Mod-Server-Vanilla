@@ -15,25 +15,13 @@ _shiftState = _this select 2;
 _controlState = _this select 3;
 _altState = _this select 4;
 if (_keyCode in (actionKeys 'TacticalView'))exitWith{true};
+if (_keyCode in (actionKeys 'User1') && !(_keyCode isEqualTo 0x02)) exitWith {call ExileClient_object_vehicle_interaction_keyLock};
 switch (_keyCode) do  
 { 
 	case 0x29:	{ _stopPropagation = true; }; 
 	case 0x0B:	 	
 	{ 
-		if ((vehicle player) isEqualTo player) then
-		{
-			if (ExileClientIsAutoRunning) then
-			{
-				false call ExileClient_gui_hud_toggleAutoRunIcon;
-				ExileClientIsAutoRunning = false;
-				player switchMove "";
-			}
-			else 
-			{
-				true call ExileClient_gui_hud_toggleAutoRunIcon;
-				ExileClientIsAutoRunning = true;
-			};
-		};
+		call ExileClient_system_autoRun_toggle;
 		_stopPropagation = true; 
 	};
 	case 0x08: 	{ _stopPropagation = true; };

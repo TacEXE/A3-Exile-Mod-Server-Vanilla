@@ -16,7 +16,7 @@ _objects = _position nearObjects ["Exile_Construction_Flag_Static", _maxRange * 
 if !(_objects isEqualTo []) then
 {
 	{
-		_distance = (getPosATL _x) distance _position;
+		_distance = (getPosATL _x) distance2D _position;
 		_radius = _x getVariable ["ExileTerritorySize", 0];
 		if (_distance <= _radius) exitWith 
 		{

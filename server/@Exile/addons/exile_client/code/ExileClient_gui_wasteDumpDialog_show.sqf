@@ -23,7 +23,7 @@ _localVehicles = [];
 forEach _nearVehicles;
 if (_localVehicles isEqualTo []) exitWith
 {
-	["VehicleCustomsWarningNoVehiclesNearby"] call BIS_fnc_showNotification;
+	["VehicleCustomsWarningNoVehiclesNearby"] call ExileClient_gui_notification_event_addNotification;
 };
 ExileClientCurrentTrader = _this;
 createDialog "RscExileWasteDumpDialog";

@@ -98,7 +98,7 @@ if( isClass(configFile >> "CfgMagazines" >> _itemClassName >> "Interactions" >> 
 	};
 	if( _feedbackString != "") then
 	{
-		["ItemConsumedInformation", [_feedbackString]] call BIS_fnc_showNotification;
+		["ItemConsumedInformation", [_feedbackString]] call ExileClient_gui_notification_event_addNotification;
 	};
 };
 true

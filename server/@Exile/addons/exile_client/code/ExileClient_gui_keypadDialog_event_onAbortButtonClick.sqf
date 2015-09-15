@@ -10,5 +10,6 @@
 private["_display"];
 disableSerialization;
 _display = uiNameSpace getVariable ["RscExileKeypad", displayNull];
+ExileClientPinCode = "";
 _display closeDisplay 0;
 true

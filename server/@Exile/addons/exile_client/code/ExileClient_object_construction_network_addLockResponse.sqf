@@ -10,5 +10,5 @@
 private["_pincode"];
 _pincode = _this select 0;
 [player, "Exile_Item_Codelock"] call ExileClient_util_playerCargo_remove;
-["Success",[format ["Lock added, Pincode: %1",_pincode]]] call BIS_fnc_showNotification;
+["Success",[format ["Lock added, Pincode: %1",_pincode]]] call ExileClient_gui_notification_event_addNotification;
 true

@@ -16,6 +16,6 @@ if("Exile_Item_FortificationUpgrade" in _playerGear)then
 }
 else
 {
-	["Whoops",["You dont have Fortification Upgrade"]] call BIS_fnc_showNotification;
+	["Whoops",["You dont have Fortification Upgrade"]] call ExileClient_gui_notification_event_addNotification;
 };
 true

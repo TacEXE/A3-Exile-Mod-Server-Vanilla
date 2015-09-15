@@ -15,7 +15,7 @@ if(_canAdd)then
 }
 else
 {	
-	["InventoryFullWarning"] call BIS_fnc_showNotification;
+	["InventoryFullWarning"] call ExileClient_gui_notification_event_addNotification;
 };
 closeDialog 0;
 true

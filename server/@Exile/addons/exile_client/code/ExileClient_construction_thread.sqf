@@ -7,7 +7,7 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_boundingBox","_boundingBoxMinimum","_boundingBoxMaximum","_boundingBoxPointsTop","_boundingBoxPointsBottom","_objectColor","_materialColor","_simulatePhysics","_position","_rotation","_vectorDirection","_vectorUp","_potentionalSnapObject","_snapToClassName","_possibleSnapNamedSelections","_possibleSnapPosition","_contactThreshold","_isBelowTerrain","_worldPosition","_isInAir","_numberOfContactsBottom","_startPosition","_endPosition"];
+private["_boundingBox","_boundingBoxMinimum","_boundingBoxMaximum","_boundingBoxPointsTop","_boundingBoxPointsBottom","_objectColor","_materialColor","_simulatePhysics","_position","_rotation","_vectorDirection","_isFlagPole","_vectorUp","_potentionalSnapObject","_snapToClassName","_possibleSnapNamedSelections","_possibleSnapPosition","_contactThreshold","_isBelowTerrain","_worldPosition","_isInAir","_numberOfContactsBottom","_startPosition","_endPosition"];
 scriptName 'Exile Construction Thread';
 ("ExileClientConstructionModeLayer" call BIS_fnc_rscLayer) cutRsc ["RscExileConstructionMode", "PLAIN", 1, false]; 
 ExileClientIsInConstructionMode = true;
@@ -39,10 +39,11 @@ _simulatePhysics = false;
 _position = [0, 0, 0];
 _rotation = 0;
 _vectorDirection = [0, 0, 0];
+_isFlagPole = ((typeOf ExileClientConstructionObject) isEqualTo "Exile_Construction_Flag_Preview");
 [] call ExileClient_gui_constructionMode_update;
 while {ExileClientConstructionResult isEqualTo 0} do
 {
-	if!(ExileClientConstructionLock)then
+	if !(ExileClientConstructionLock) then
 	{
 		_vectorUp = [0, 0, 1];
 		ExileClientConstructionCanPlaceObject = false;
@@ -186,6 +187,15 @@ while {ExileClientConstructionResult isEqualTo 0} do
 			_objectColor = "#(argb,2,2,1)color(0.91,0,0,0.6,ca)";
 		};
 	};
+	if !(_isFlagPole) then
+	{
+		if !((getPosATL ExileClientConstructionObject) call ExileClient_util_world_canBuildHere) then
+		{
+			ExileClientConstructionCanPlaceObject = false;
+			_simulatePhysics = false;
+			_objectColor = "#(argb,2,2,1)color(0.91,0,0,0.6,ca)";
+		};
+	};
 	if (_objectColor != _materialColor) then
 	{
 		ExileClientConstructionObject setObjectTextureGlobal[0, _objectColor];
@@ -220,7 +230,11 @@ switch (ExileClientConstructionResult) do
 		[ExileClientConstructionObject, getText (ExileClientConstructionConfig >> "staticObject"), _simulatePhysics] spawn ExileClient_construction_simulationCountDown;
 		if (getText (ExileClientConstructionConfig >> "staticObject") isEqualTo "Exile_Container_Safe") then 
 		{
-			["SafePlacedInformation"] call BIS_fnc_showNotification;
+			["SafePlacedInformation"] call ExileClient_gui_notification_event_addNotification;
+		}
+		else
+		{
+			["ConstructionPlacedInformation", [ExileClientConstructionObjectDisplayName]] call ExileClient_gui_notification_event_addNotification;
 		};
 	};
 	case 3:
@@ -233,7 +247,7 @@ switch (ExileClientConstructionResult) do
 		{
 			["deconstructConstructionRequest", [netId ExileClientConstructionObject]] call ExileClient_system_network_send;
 		};
-		["ConstructionMovedTooFarWarning", [ExileClientConstructionObjectDisplayName]] call BIS_fnc_showNotification;
+		["ConstructionMovedTooFarWarning", [ExileClientConstructionObjectDisplayName]] call ExileClient_gui_notification_event_addNotification;
 	};
 	case 2:
 	{
@@ -247,11 +261,11 @@ switch (ExileClientConstructionResult) do
 		};
 		if(ExileClientPlayerIsInCombat)then
 		{
-			["ConstructionAbortedCombat"] call BIS_fnc_showNotification;
+			["ConstructionAbortedCombat"] call ExileClient_gui_notification_event_addNotification;
 		}
 		else
 		{
-			["ConstructionAbortedInformation", [ExileClientConstructionObjectDisplayName]] call BIS_fnc_showNotification;
+			["ConstructionAbortedInformation", [ExileClientConstructionObjectDisplayName]] call ExileClient_gui_notification_event_addNotification;
 		};		
 	};
 };

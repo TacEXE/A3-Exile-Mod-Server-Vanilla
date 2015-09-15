@@ -8,7 +8,7 @@
  */
  
 private["_vehicle"];
-["SafezoneEnter"] call bis_fnc_showNotification;
+["SafezoneEnter"] call ExileClient_gui_notification_event_addNotification;
 ExilePlayerInSafezone = true;
 ExileSafeZoneEspEH = addMissionEventHandler ["Draw3D",{20 call ExileClient_gui_safezone_safeESP}];
 ExileSafeZoneFiredEH = player addEventHandler ["Fired", {_this call ExileClient_gui_safezone_fired}];

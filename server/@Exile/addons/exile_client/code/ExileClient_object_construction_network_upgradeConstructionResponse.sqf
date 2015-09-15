@@ -10,5 +10,5 @@
 private["_newObject"];
 _newObject = _this select 0;
 [player, "Exile_Item_FortificationUpgrade"] call ExileClient_util_playerCargo_remove;
-["Success",["Successfuly Upgraded"]] call BIS_fnc_showNotification;
+["Success",["Successfuly Upgraded"]] call ExileClient_gui_notification_event_addNotification;
 true

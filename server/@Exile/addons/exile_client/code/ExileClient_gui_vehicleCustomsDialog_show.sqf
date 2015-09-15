@@ -41,7 +41,7 @@ _customizableVehicles = [];
 forEach _nearVehicles;
 if (_localVehicles isEqualTo []) exitWith
 {
-	["VehicleCustomsWarningNoVehiclesNearby"] call BIS_fnc_showNotification;
+	["VehicleCustomsWarningNoVehiclesNearby"] call ExileClient_gui_notification_event_addNotification;
 };
 {
 	_parentClassName = configName (inheritsFrom (configFile >> "CfgVehicles" >> (typeOf _x)));
@@ -53,7 +53,7 @@ if (_localVehicles isEqualTo []) exitWith
 forEach _localVehicles;
 if (_customizableVehicles isEqualTo []) exitWith
 {
-	["VehicleCustomsWarningNothingToCustomize"] call BIS_fnc_showNotification;
+	["VehicleCustomsWarningNothingToCustomize"] call ExileClient_gui_notification_event_addNotification;
 };
 ExileClientMoonLight setLightBrightness 5;
 createDialog "RscExileVehicleCustomsDialog";

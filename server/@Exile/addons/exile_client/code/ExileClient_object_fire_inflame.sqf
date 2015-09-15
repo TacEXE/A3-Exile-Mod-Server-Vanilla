@@ -16,6 +16,6 @@ if ("Exile_Item_Matches" in (magazines player)) then
 }
 else 
 {
-	["NoMatchesWarning"] call BIS_fnc_showNotification;
+	["NoMatchesWarning"] call ExileClient_gui_notification_event_addNotification;
 };
 true

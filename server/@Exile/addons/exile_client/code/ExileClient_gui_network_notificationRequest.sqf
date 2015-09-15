@@ -7,5 +7,5 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-[_this select 0, [_this select 1]] call BIS_fnc_showNotification;
+[_this select 0, [_this select 1]] call ExileClient_gui_notification_event_addNotification;
 true

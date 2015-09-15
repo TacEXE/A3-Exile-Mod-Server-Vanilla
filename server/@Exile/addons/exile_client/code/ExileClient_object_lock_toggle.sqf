@@ -7,13 +7,24 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_condition","_object","_pincode"];
+private["_condition","_object","_known","_pincode"];
 _condition = _this;
 _object = ExileClientInteractionObject;
-_pincode = 4 call ExileClient_gui_keypadDialog_show;
+if(ExileLockIsShown)exitWith{};
+ExileLockIsShown = true;
+_known = _object getVariable ["ExileAllreadyKnownCode",""];
+if(_known isEqualTo "")then
+{
+	_pincode = 4 call ExileClient_gui_keypadDialog_show;
+}
+else
+{
+	_pincode = _known;
+};
 if!(_pincode isEqualTo "")then
 {
 	["lockToggle",[netId _object,_pincode,_condition]] call ExileClient_system_network_send;
 };
 call ExileClient_gui_interactionMenu_unhook;
+ExileLockIsShown = false;
 true

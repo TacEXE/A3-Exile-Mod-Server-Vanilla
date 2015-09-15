@@ -12,4 +12,5 @@ disableSerialization;
 _display = uiNameSpace getVariable ["RscExileXM8", displayNull];
 _8GCombo = _display displayCtrl 4072;
 player setVariable ["ExileXM8IsOnline", ((lbCurSel _8GCombo) isEqualTo 1), true];
+profileNamespace setVariable ["ExileEnable8GNetwork", ((lbCurSel _8GCombo) isEqualTo 1)];
 call ExileClient_gui_xm8_thread_update;

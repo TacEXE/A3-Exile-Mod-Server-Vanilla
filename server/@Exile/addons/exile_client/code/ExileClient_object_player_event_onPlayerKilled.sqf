@@ -11,6 +11,10 @@ private["_respawnDelay"];
 if (!(isMultiplayer)) exitWith {};
 "onPlayerKilled - Player was killed..." call ExileClient_util_log;
 setPlayerRespawnTime 10e10;
+if(ExilePlayerInSafezone)then
+{
+	call ExileClient_object_player_event_onLeaveSafezone;
+};
 _respawnDelay = _this select 3;
 _respawnDelay call ExileClient_object_player_death_startBleedingOut;
 true

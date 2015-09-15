@@ -12,7 +12,7 @@ _newPlayerObject = _this;
 _oldPlayerObject = player;
 player reveal [_newPlayerObject, 4];
 selectPlayer _newPlayerObject;
-[_oldPlayerObject] joinSilent grpNull;
+player setVariable ["ExileXM8IsOnline", (profileNamespace getVariable ["ExileEnable8GNetwork", false]), true];
 enableSentences false;
 enableRadio false;
 player setVariable ["BIS_noCoreConversations", true];

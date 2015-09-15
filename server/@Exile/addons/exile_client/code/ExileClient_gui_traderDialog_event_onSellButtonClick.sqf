@@ -7,7 +7,7 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_dialog","_inventoryListBox","_selectedInventoryListBoxIndex","_itemClassName","_quantity","_inventoryDropdown","_selectedInventoryDropdownIndex","_currentContainerType","_containerNetID"];
+private["_dialog","_inventoryListBox","_selectedInventoryListBoxIndex","_itemClassName","_quantity","_inventoryDropdown","_selectedInventoryDropdownIndex","_currentContainerType","_containerNetID","_container","_retardCheck"];
 if !(uiNameSpace getVariable ["RscExileTraderDialogIsInitialized", false]) exitWith {};
 _dialog = uiNameSpace getVariable ["RscExileTraderDialog", displayNull];
 _inventoryListBox = _dialog displayCtrl 4005;
@@ -25,8 +25,17 @@ if !(_selectedInventoryListBoxIndex isEqualTo -1) then
 		if (_currentContainerType isEqualTo 5) then
 		{
 			_containerNetID = _inventoryDropdown lbData _selectedInventoryDropdownIndex;
+			_container = objectFromNetId _containerNetID;
+			_retardCheck = _container call ExileClient_util_containerCargo_list;
+		}
+		else
+		{
+			_retardCheck = player call ExileClient_util_playerCargo_list;
 		};
-		["sellItemRequest", [_itemClassName, _quantity, _currentContainerType, _containerNetID]] call ExileClient_system_network_send;
+		if (_itemClassName in _retardCheck) then
+		{
+			["sellItemRequest", [_itemClassName, _quantity, _currentContainerType, _containerNetID]] call ExileClient_system_network_send;
+		};
 	};
 };
 true

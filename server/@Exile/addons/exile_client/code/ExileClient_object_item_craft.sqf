@@ -119,10 +119,10 @@ if (_quantityCrafted > 0) then
 		_feedbackMessage = _feedbackMessage + format ["+%1x %2", _returnedItemQuantity, _returnedItemName];
 	}
 	forEach _addedItems;
-	["ItemCraftedInformation", [_feedbackMessage]] call BIS_fnc_showNotification;
+	["ItemCraftedInformation", [_feedbackMessage]] call ExileClient_gui_notification_event_addNotification;
 }
 else 
 {
-	["InventoryFullWarning"] call BIS_fnc_showNotification;
+	["InventoryFullWarning"] call ExileClient_gui_notification_event_addNotification;
 };
 true

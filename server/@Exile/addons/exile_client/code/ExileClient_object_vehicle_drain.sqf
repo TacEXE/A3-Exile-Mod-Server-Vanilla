@@ -34,7 +34,7 @@ if((count _hasACan) isEqualTo 3)then
 	_fuelAmount = _fuelDetails select 0;
 	if(_fuelAmount isEqualTo 0)exitWith
 	{
-		["VehicleDrainingFailedFuel"] call BIS_fnc_showNotification;
+		["VehicleDrainingFailedFuel"] call ExileClient_gui_notification_event_addNotification;
 	};
 	if((_hasACan select 1) > _fuelAmount)then
 	{
@@ -62,10 +62,10 @@ if((count _hasACan) isEqualTo 3)then
 	{
 		["setFuelRequest",[netId _object,-_amount]] call ExileClient_system_network_send;
 	};
-	["VehicleDrained", [format ["Vehicle drained for: %1L",_amount]]] call BIS_fnc_showNotification;
+	["VehicleDrained", [format ["Vehicle drained for: %1L",_amount]]] call ExileClient_gui_notification_event_addNotification;
 }
 else
 {
-	["VehicleDrainingFailed"] call BIS_fnc_showNotification;
+	["VehicleDrainingFailed"] call ExileClient_gui_notification_event_addNotification;
 };
 true

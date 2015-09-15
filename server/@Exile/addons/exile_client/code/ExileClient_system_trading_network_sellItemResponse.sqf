@@ -55,11 +55,11 @@ if (_responseCode isEqualTo 0) then
 	};
 	if (_respect isEqualTo 0) then
 	{
-		["ItemSoldInformation", [_sellPrice]] call BIS_fnc_showNotification;
+		["ItemSoldInformation", [_sellPrice]] call ExileClient_gui_notification_event_addNotification;
 	}
 	else 
 	{
-		["ItemSoldInformationWithRespect", [_sellPrice, _respect]] call BIS_fnc_showNotification;
+		["ItemSoldInformationWithRespect", [_sellPrice, _respect]] call ExileClient_gui_notification_event_addNotification;
 	};
 	_dialog = uiNameSpace getVariable ["RscExileTraderDialog", displayNull];
 	if !(_dialog isEqualTo displayNull) then

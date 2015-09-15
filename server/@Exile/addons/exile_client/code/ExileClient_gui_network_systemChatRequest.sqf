@@ -11,5 +11,8 @@ private["_line"];
 _line = _this select 0;
 diag_log format["SystemChat: %1", _line];
 systemChat _line;
-playsound "AddItemOK";
+if (profileNamespace getVariable ["ExileEnableSoundNotifications", false]) then
+{
+	playsound "AddItemOK";
+};
 true

@@ -14,6 +14,6 @@ _group = group _invitor;
 _groupName = groupID _group;
 if (ExileClientPartyID isEqualTo -1) then
 {
-	["PartyInviteMessage", [_groupName]] call BIS_fnc_showNotification;
+	["PartyInviteMessage", [_groupName]] call ExileClient_gui_notification_event_addNotification;
 	ExileClientPendingPartyInvitionGroup = _group;
 };

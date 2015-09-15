@@ -18,8 +18,11 @@ switch (_keyCode) do
 { 
 	case 0x07:
 	{
-		closeDialog 1;
-		_stopPropagation = true;
+		if !(ExileClientXM8InputBoxFocused) then
+		{
+			closeDialog 1;
+			_stopPropagation = true;
+		};
 	};
 };
 _stopPropagation

@@ -15,14 +15,16 @@ _health ctrlSetStructuredText parseText (format ["<t color='#00b2cd' font='Orbit
 _popTabsValue = ExileClientPlayerMoney;
 if (_popTabsValue > 999) then
 {
-	_popTabsValue = format ["%1k", round (_popTabsValue / 1000)];
+	_popTabsValue = format ["%1k", floor (_popTabsValue / 1000)];
 };
 _popTabs = _display displayCtrl 4058;
+_popTabs ctrlSetTooltip format["%1", ExileClientPlayerMoney];
 _popTabs ctrlSetStructuredText parseText (format ["<t color='#00b2cd' font='OrbitronLight' size='1.6' valign='middle' align='center' shadow='0'><br/><br/><br/><t font='OrbitronMedium' size='3.5' color='#ffffff'>%1</t><br/>POP TABS</t>", _popTabsValue]);
 _respectValue = ExileClientPlayerScore;
 if (_respectValue > 999) then
 {
-	_respectValue = format ["%1k", round (_respectValue / 1000)];
+	_respectValue = format ["%1k", floor (_respectValue / 1000)];
 };
 _respect = _display displayCtrl 4059;
+_respect ctrlSetTooltip format["%1", ExileClientPlayerScore];
 _respect ctrlSetStructuredText parseText (format ["<t color='#00b2cd' font='OrbitronLight' size='1.6' valign='middle' align='center' shadow='0'><br/><br/><br/><t font='OrbitronMedium' size='3.5' color='#ffffff'>%1</t><br/>RESPECT</t>", _respectValue]);

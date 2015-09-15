@@ -16,7 +16,7 @@ if (_responseCode isEqualTo 0) then
 	ExileClientClanName = _clanName;
 	ExileClientPlayerMoney = parseNumber _money;
 	_registrationFee = getNumber (missionConfigFile >> "CfgClans" >> "registrationFee");
-	["ClanRegisteredMessage", [-1 * _registrationFee]] call BIS_fnc_showNotification;
+	["ClanRegisteredMessage", [-1 * _registrationFee]] call ExileClient_gui_notification_event_addNotification;
 }
 else 
 {

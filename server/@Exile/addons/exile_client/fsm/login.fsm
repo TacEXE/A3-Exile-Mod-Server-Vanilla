@@ -178,8 +178,8 @@ link89[] = {82,53};
 link90[] = {24,83};
 link91[] = {33,83};
 link92[] = {77,83};
-globals[] = {25.000000,1,0,0,0,640,480,1,419,6316128,1,340.484894,1386.570435,3312.183838,2547.575195,1245,910,1};
-window[] = {2,-1,-1,-1,-1,812,78,1372,78,3,1263};
+globals[] = {25.000000,1,0,0,0,640,480,1,419,6316128,1,340.484894,1386.570435,3186.149414,2421.540771,1245,910,1};
+window[] = {2,-1,-1,-1,-1,968,234,1528,234,3,1263};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -725,7 +725,10 @@ class FSM
     class __00__Hide_loading
     {
       name = "__00__Hide_loading";
-      init = /*%FSM<STATEINIT""">*/"progressLoadingScreen 1;" \n
+      init = /*%FSM<STATEINIT""">*/"// Rebuild territory locations" \n
+       "call ExileClient_system_territory_rebuildTerritoryLocations;" \n
+       "" \n
+       "progressLoadingScreen 1;" \n
        "" \n
        "endLoadingScreen;" \n
        "" \n
@@ -790,7 +793,9 @@ class FSM
        "ExileClientPlayerIsBambi call ExileClient_gui_hud_toggleBambiIcon;" \n
        "" \n
        "//Loaded" \n
-       "ExileClientLoadedIn = true;"/*%FSM</STATEINIT""">*/;
+       "ExileClientLoadedIn = true;" \n
+       "" \n
+       "showChat true;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {

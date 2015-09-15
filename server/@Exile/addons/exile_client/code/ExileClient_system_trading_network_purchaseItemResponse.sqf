@@ -49,7 +49,7 @@ if (_responseCode isEqualTo 0) then
 			[_vehicle, _itemClassName] call ExileClient_util_containerCargo_add;
 		};
 	};
-	["ItemPurchasedInformation", [_salesPrice * -1]] call BIS_fnc_showNotification;
+	["ItemPurchasedInformation", [_salesPrice * -1]] call ExileClient_gui_notification_event_addNotification;
 	_dialog = uiNameSpace getVariable ["RscExileTraderDialog", displayNull];
 	if !(_dialog isEqualTo displayNull) then
 	{

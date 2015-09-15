@@ -11,7 +11,7 @@ private["_vehicle","_availableHitpoints","_fixable","_equippedMagazines"];
 _vehicle = _this select 0;
 if (vehicle player isEqualTo _vehicle) exitWith 
 {
-	["RepairFailedWarning", ["Are you serious?"]] call BIS_fnc_showNotification;
+	["RepairFailedWarning", ["Are you serious?"]] call ExileClient_gui_notification_event_addNotification;
 };
 _availableHitpoints = _vehicle call ExileClient_util_vehicle_getHitPoints;
 {
@@ -23,11 +23,11 @@ _availableHitpoints = _vehicle call ExileClient_util_vehicle_getHitPoints;
 forEach _availableHitpoints;
 if (isNil "_fixable") exitWith 
 {
-	["RepairFailedWarning", ["This vehicle already looks fine."]] call BIS_fnc_showNotification;
+	["RepairFailedWarning", ["This vehicle already looks fine."]] call ExileClient_gui_notification_event_addNotification;
 }; 
 if (!local _vehicle) then
 {
-	["RepairFailedWarning", ["Please get in as driver/pilot first."]] call BIS_fnc_showNotification;
+	["RepairFailedWarning", ["Please get in as driver/pilot first."]] call ExileClient_gui_notification_event_addNotification;
 }
 else 
 {
@@ -39,7 +39,7 @@ else
 	}
 	else 
 	{
-		["RepairFailedWarning", ["You need duct tape to do that!"]] call BIS_fnc_showNotification;
+		["RepairFailedWarning", ["You need duct tape to do that!"]] call ExileClient_gui_notification_event_addNotification;
 	};
 };
 true

@@ -7,11 +7,12 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_position","_radius","_isNearby","_triggers"];
+private["_position","_isNearby","_radius","_triggers"];
 _position = _this;
-_radius = 1000;
 _isNearby = false;
-_triggers = _position nearObjects ["Exile_Construction_Flag_Static", _radius];
+_radius = getArray(missionConfigFile >> "CfgTerritories" >> "prices");
+_radius = (_radius select ((count _radius) -1)) select 1;
+_triggers = _position nearObjects ["Exile_Construction_Flag_Static", _radius * 2];
 if !(_triggers isEqualTo []) then
 {
 	_isNearby = true;

@@ -15,7 +15,7 @@ if (_responseCode isEqualTo 0) then
 	_newPlayerMoney = parseNumber _newPlayerMoneyString;
 	_salesPrice = ExileClientPlayerMoney - _newPlayerMoney;
 	ExileClientPlayerMoney = _newPlayerMoney;
-	["VehicleSkinPurchasedInformation", [_salesPrice * -1]] call BIS_fnc_showNotification;
+	["VehicleSkinPurchasedInformation", [_salesPrice * -1]] call ExileClient_gui_notification_event_addNotification;
 }
 else 
 {

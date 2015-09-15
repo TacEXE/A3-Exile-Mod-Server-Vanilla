@@ -30,4 +30,5 @@ ExileClientPlayerAttributesASecondAgo set [4, ExileClientPlayerAttributes select
 ExileClientPlayerIsSpawned = true;
 player enableFatigue false; 
 true call ExileClient_gui_showSurvivalInfo;
+call ExileClient_system_rating_balance;
 true

@@ -31,6 +31,6 @@ try
 }
 catch 
 {
-	["Whoops", [_exception]] call BIS_fnc_showNotification;
+	["Whoops", [_exception]] call ExileClient_gui_notification_event_addNotification;
 };
 true

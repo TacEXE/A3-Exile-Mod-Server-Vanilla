@@ -20,11 +20,11 @@ if( isClass(configFile >> "CfgMagazines" >> _itemClassName >> "Interactions" >> 
 		_successNotification = getText (_inspectingConfig >> "successNotification");
 		_successCode = format["[] call %1", _successFunction];
 		[] call compile _successCode;
-		[_successNotification] call BIS_fnc_showNotification;
+		[_successNotification] call ExileClient_gui_notification_event_addNotification;
 	}
 	else 
 	{
-		["InspectingFailedInformation"] call BIS_fnc_showNotification;
+		["InspectingFailedInformation"] call ExileClient_gui_notification_event_addNotification;
 	};
 	player removeMagazine _itemClassName;
 };

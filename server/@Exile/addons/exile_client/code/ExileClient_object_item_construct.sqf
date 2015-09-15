@@ -31,7 +31,7 @@ if( isClass(configFile >> "CfgMagazines" >> _itemClassName >> "Interactions" >> 
 		}
 		else
 		{
-			[_exception] call BIS_fnc_showNotification;
+			[_exception] call ExileClient_gui_notification_event_addNotification;
 		};	
 	};
 };

@@ -1,12 +1,12 @@
 ////////////////////////////////////////////////////////////////////
 //DeRap: Produced from mikero's Dos Tools Dll version 5.20
-//Produced on Fri Aug 21 16:24:50 2015 : Created on Fri Aug 21 16:24:50 2015
+//Produced on Sun Aug 30 19:36:54 2015 : Created on Sun Aug 30 19:36:54 2015
 //http://dev-heaven.net/projects/list_files/mikero-pbodll
 ////////////////////////////////////////////////////////////////////
 
 #define _ARMA_
 
-//Class D:\Dropbox\public\GitHub\A3-Exile-Mod-Server-Vanilla\server\@Exile\addons\exile_client\config.bin{
+//Class C:\Users\TacEXE\Desktop\@Exile\addons\exile_client\config.bin{
 class CfgPatches
 {
 	class exile_client
@@ -464,12 +464,12 @@ class CfgDifficulties
 			deathMessages[] = {0,0};
 			extendetInfoType[] = {0,0};
 			hud[] = {1,0};
-			hudGroupInfo[] = {1,0};
+			hudGroupInfo[] = {0,0};
 			map[] = {0,0};
 			netStats[] = {0,0};
 			stanceIndicator[] = {0,0};
 			vonId[] = {1,0};
-			3rdPersonView[] = {1,0};
+			3rdPersonView[] = {0,0};
 			autoAim[] = {0,0};
 			autoGuideAT[] = {1,0};
 			autoSpot[] = {0,0};
@@ -608,19 +608,25 @@ class CfgFlagsNative
 	class BI
 	{
 		name = "Bohemia Interactive";
-		texture = "exile_client\texture\flags\flag_mate_bis_co.paa";
+		texture = "exile_client\texture\flag\flag_mate_bis_co.paa";
 		uids[] = {"76561197977933359","76561197968664825","76561198003485468","76561198050098256","76561198007169107","76561197971697870","76561198085333695","76561197991855773"};
 	};
 	class Vish
 	{
 		name = "Vish";
-		texture = "exile_client\texture\flags\flag_mate_vish_co.paa";
+		texture = "exile_client\texture\flag\flag_mate_vish_co.paa";
 		uids[] = {"76561198075905447"};
+	};
+	class Legion
+	{
+		name = "Legion";
+		texture = "exile_client\texture\flag\flag_mate_legion_ca.paa";
+		uids[] = {"76561198010969041","76561198124983829","76561198094881952","76561198111208683","76561198015966307","76561198078247060","76561198034836765","76561197998832240","76561197970701357","76561198123330495"};
 	};
 	class DogesOfMassDestruction
 	{
 		name = "21 DMD";
-		texture = "exile_client\texture\flags\flag_mate_21dmd_co.paa";
+		texture = "exile_client\texture\flag\flag_mate_21dmd_co.paa";
 		uids[] = {"76561198021615590"};
 	};
 	class Spawny
@@ -837,6 +843,12 @@ class CfgFlagsNative
 	{
 		name = "Respect my autoritah!";
 		texture = "exile_client\texture\flag\flag_misc_rma_co.paa";
+		uids[] = {};
+	};
+	class CP
+	{
+		name = "ClarkyCallad";
+		texture = "exile_client\texture\flag\flag_cp_co.paa";
 		uids[] = {};
 	};
 };
@@ -1295,13 +1307,13 @@ class CfgInteractionMenus
 			{
 				title = "Move";
 				condition = "true";
-				action = "_this call ExileClient_object_construction_move";
+				action = "_this spawn ExileClient_object_construction_move";
 			};
 			class Deconstruct: ExileAbstractAction
 			{
 				title = "Remove";
 				condition = "true";
-				action = "_this call ExileClient_object_construction_deconstruct";
+				action = "_this spawn ExileClient_object_construction_deconstruct";
 			};
 			class AddALock: ExileAbstractAction
 			{
@@ -1365,7 +1377,12 @@ class CfgInteractionModels
 	class WaterSource
 	{
 		name = "Water tanks, barrels, coolers or pumps";
-		models[] = {"water"};
+		models[] = {"barrelwater_f","barrelwater_grey_f","waterbarrel_f","watertank_f","stallwater_f","waterpump_01_f","water_source_f"};
+	};
+	class CleanWaterSource
+	{
+		name = "Water cooler";
+		models[] = {"watercooler"};
 	};
 	class WorkBench
 	{
@@ -1616,6 +1633,8 @@ class CfgMagazines
 		scope = 2;
 		displayName = "Cooking Pot";
 		descriptionShort = "If you know how to cook, this pot will surely become handy sometime.";
+		model = "\exile_client\model\Exile_Item_Cookingpot.p3d";
+		picture = "\exile_client\texture\item\Exile_Item_Cookingpot.paa";
 		mass = 20;
 		quality = 1;
 	};
@@ -2292,8 +2311,8 @@ class CfgMods
 		hidePicture = 0;
 		hideName = 0;
 		dlcColor[] = {0,94,0,29,0,98,1};
-		version = "0.9.18";
-		armaVersion = "148";
+		version = "0.9.19";
+		armaVersion = "150";
 		overview = "";
 		itemPrevNotifText = "";
 	};
@@ -49065,8 +49084,8 @@ class CfgNetworkMessages
 	};
 	class notificationRequest
 	{
-		module = "gui";
-		parameters[] = {"STRING","STRING"};
+		module = "gui_notification";
+		parameters[] = {"STRING","ARRAY"};
 	};
 	class dynamicTextRequest
 	{
@@ -49082,6 +49101,16 @@ class CfgNetworkMessages
 	{
 		module = "object_construction";
 		parameters[] = {"STRING","ARRAY"};
+	};
+	class payTerritoryProtectionMoneyRequest
+	{
+		module = "system_territory";
+		parameters[] = {"STRING","SCALAR"};
+	};
+	class payTerritoryProtectionMoneyResponse
+	{
+		module = "system_territory";
+		parameters[] = {"STRING","STRING"};
 	};
 	class buildTerritoryRequest
 	{
@@ -49146,7 +49175,7 @@ class CfgNetworkMessages
 	class lockResponse
 	{
 		module = "object_vehicle";
-		parameters[] = {"STRING","BOOL"};
+		parameters[] = {"STRING","BOOL","OBJECT","STRING"};
 	};
 	class toggleFloodLightRequest
 	{
@@ -49253,6 +49282,36 @@ class CfgNetworkMessages
 		module = "system_party";
 		parameters[] = {};
 	};
+	class announceTerritoryRequest
+	{
+		module = "system_territory";
+		parameters[] = {"STRING"};
+	};
+	class addToTerritoryRequest
+	{
+		module = "system_territory";
+		parameters[] = {"STRING","STRING"};
+	};
+	class removeFromTerritoryRequest
+	{
+		module = "system_territory";
+		parameters[] = {"STRING","STRING"};
+	};
+	class sendMoneyRequest
+	{
+		module = "system_trading";
+		parameters[] = {"STRING","STRING"};
+	};
+	class moneySentRequest
+	{
+		module = "system_trading";
+		parameters[] = {"STRING","STRING"};
+	};
+	class moneyReceivedRequest
+	{
+		module = "system_trading";
+		parameters[] = {"STRING","STRING"};
+	};
 	class purchaseTerritory
 	{
 		module = "system_territory";
@@ -49350,9 +49409,31 @@ class CfgNotifications
 		priority = 0;
 		difficulty[] = {};
 	};
+	class ProtectionMoneyPaidInformation
+	{
+		description = "Protecton money paid!";
+		title = "PROTECTION MONEY PAID";
+		iconPicture = "\exile_client\texture\ui\success_ca.paa";
+		iconText = "";
+		color[] = {0.7,0.93,0,1};
+		duration = 2;
+		priority = 0;
+		difficulty[] = {};
+	};
+	class AddedToTerritoryMessage
+	{
+		description = "You have been added to %1!";
+		title = "TO NEW LANDS";
+		iconPicture = "\exile_client\texture\ui\success_ca.paa";
+		iconText = "";
+		color[] = {0.7,0.93,0,1};
+		duration = 2;
+		priority = 0;
+		difficulty[] = {};
+	};
 	class PartyInviteMessage
 	{
-		description = "%1";
+		description = "<t size='0.9' font='puristaMedium' align='left'>%1</t>";
 		title = "PARTY INVITE";
 		iconPicture = "\exile_client\texture\ui\enter_ca.paa";
 		iconText = "";
@@ -49383,6 +49464,28 @@ class CfgNotifications
 		priority = 0;
 		difficulty[] = {};
 	};
+	class MoneySent
+	{
+		description = "<t size='1' font='puristaMedium' align='left'>%1<img image='\exile_client\texture\ui\poptab_notification_ca.paa' size='1' shadow='true' /> sent to %2</t>";
+		title = "POP TABS SENT";
+		iconPicture = "\exile_client\texture\ui\success_ca.paa";
+		iconText = "";
+		color[] = {0.7,0.93,0,1};
+		duration = 3;
+		priority = 0;
+		difficulty[] = {};
+	};
+	class MoneyReceived
+	{
+		description = "<t size='1' font='puristaMedium' align='left'>%1<img image='\exile_client\texture\ui\poptab_notification_ca.paa' size='1' shadow='true' /> received from %2</t>";
+		title = "POP TABS RECEIVED";
+		iconPicture = "\exile_client\texture\ui\success_ca.paa";
+		iconText = "";
+		color[] = {0.7,0.93,0,1};
+		duration = 3;
+		priority = 0;
+		difficulty[] = {};
+	};
 	class Whoops
 	{
 		description = "%1";
@@ -49391,6 +49494,28 @@ class CfgNotifications
 		iconText = "";
 		color[] = {0.91,0,0,1};
 		duration = 3;
+		priority = 0;
+		difficulty[] = {};
+	};
+	class RestartWarning
+	{
+		description = "%1";
+		title = "WHOOPS";
+		iconPicture = "\exile_client\texture\ui\fail_ca.paa";
+		iconText = "";
+		color[] = {0.91,0,0,1};
+		duration = 6;
+		priority = 0;
+		difficulty[] = {};
+	};
+	class LockKickWarning
+	{
+		description = "<t size='0.9' font='puristaMedium' align='left'>%1</t>";
+		title = "WHOOPS";
+		iconPicture = "\exile_client\texture\ui\fail_ca.paa";
+		iconText = "";
+		color[] = {0.91,0,0,1};
+		duration = 6;
 		priority = 0;
 		difficulty[] = {};
 	};
@@ -49470,7 +49595,7 @@ class CfgNotifications
 		iconPicture = "\exile_client\texture\ui\success_ca.paa";
 		iconText = "";
 		color[] = {0.7,0.93,0,1};
-		duration = 1;
+		duration = 2;
 		priority = 0;
 		difficulty[] = {};
 	};
@@ -50878,6 +51003,16 @@ class CfgVehicles
 				condition = "true";
 				statement = "this call ExileClient_gui_purchaseTerritoryDialog_show";
 			};
+			class territoryProtectionMoney
+			{
+				displayName = "Pay Territory Protection Money";
+				position = "ohniste";
+				radius = 3;
+				priority = 5;
+				onlyForPlayer = 1;
+				condition = "true";
+				statement = "this call ExileClient_gui_payTerritoryProtectionMoneyDialog_show";
+			};
 		};
 	};
 	class Exile_Trader_VehicleCustoms: Exile_Trader_Abstract
@@ -50936,6 +51071,12 @@ class CfgVehicles
 				statement = "this call ExileClient_gui_vehicleCustomsDialog_show";
 			};
 		};
+	};
+	class Exile_Trader_CommunityCustoms: Exile_Trader_Abstract
+	{
+		displayName = "Exile Community Customs Trader";
+		uniformClass = "Exile_Uniform_ExileCustoms";
+		linkedItems[] = {};
 	};
 	class Exile_Construction_Abstract_Physics: thingX
 	{
@@ -52089,6 +52230,79 @@ class CfgVehicles
 	class Exile_Car_Ifrit: Exile_Car_Ifrit_Abstract
 	{
 		scope = 2;
+	};
+	class C_Kart_01_black_F;
+	class Exile_Car_Kart_Abstract: C_Kart_01_black_F
+	{
+		author = "Exile Mod Team";
+		scope = 0;
+		side = 3;
+		faction = "CIV_F";
+		vehicleclass = "ExileCars";
+		skinName = "";
+		displayName = "Kart";
+		class EventHandlers: DefaultEventHandlers
+		{
+			init = "";
+		};
+		class TransportItems{};
+		class TransportBackpacks{};
+		class TransportMagazines{};
+		class TransportWeapons{};
+	};
+	class Exile_Car_Kart_BluKing: Exile_Car_Kart_Abstract
+	{
+		scope = 2;
+		skinName = "BluKing";
+		hiddenSelectionsTextures[] = {"\a3\Soft_F_Kart\Kart_01\Data\Kart_01_blu_CO.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_01_logos_blu_CA.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_num_1_CA.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_num_3_CA.paa"};
+	};
+	class Exile_Car_Kart_RedStone: Exile_Car_Kart_Abstract
+	{
+		scope = 2;
+		skinName = "RedStone";
+		hiddenSelectionsTextures[] = {"\a3\Soft_F_Kart\Kart_01\Data\Kart_01_black_CO.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_01_logos_black_CA.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_num_1_CA.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_num_3_CA.paa"};
+	};
+	class Exile_Car_Kart_Vrana: Exile_Car_Kart_Abstract
+	{
+		scope = 2;
+		skinName = "Vrana";
+		hiddenSelectionsTextures[] = {"\a3\Soft_F_Kart\Kart_01\Data\Kart_01_vrana_CO.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_01_logos_vrana_CA.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_num_1_CA.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_num_3_CA.paa"};
+	};
+	class Exile_Car_Kart_Green: Exile_Car_Kart_Abstract
+	{
+		scope = 2;
+		skinName = "Green";
+		hiddenSelectionsTextures[] = {"\a3\Soft_F_Kart\Kart_01\Data\Kart_01_base_green_CO.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_01_logos_blu_CA.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_num_1_CA.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_num_3_CA.paa"};
+	};
+	class Exile_Car_Kart_Blue: Exile_Car_Kart_Abstract
+	{
+		scope = 2;
+		skinName = "Blue";
+		hiddenSelectionsTextures[] = {"\a3\Soft_F_Kart\Kart_01\Data\Kart_01_base_blue_CO.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_01_logos_blu_CA.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_num_1_CA.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_num_3_CA.paa"};
+	};
+	class Exile_Car_Kart_Orange: Exile_Car_Kart_Abstract
+	{
+		scope = 2;
+		skinName = "Orange";
+		hiddenSelectionsTextures[] = {"\a3\Soft_F_Kart\Kart_01\Data\Kart_01_base_orange_CO.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_01_logos_blu_CA.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_num_1_CA.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_num_3_CA.paa"};
+	};
+	class Exile_Car_Kart_White: Exile_Car_Kart_Abstract
+	{
+		scope = 2;
+		skinName = "White";
+		hiddenSelectionsTextures[] = {"\a3\Soft_F_Kart\Kart_01\Data\Kart_01_base_white_CO.paa","","\a3\Soft_F_Kart\Kart_01\Data\Kart_num_1_CA.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_num_3_CA.paa"};
+	};
+	class Exile_Car_Kart_Yellow: Exile_Car_Kart_Abstract
+	{
+		scope = 2;
+		skinName = "Yellow";
+		hiddenSelectionsTextures[] = {"\a3\Soft_F_Kart\Kart_01\Data\Kart_01_base_yellow_CO.paa","","\a3\Soft_F_Kart\Kart_01\Data\Kart_num_1_CA.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_num_3_CA.paa"};
+	};
+	class Exile_Car_Kart_Black: Exile_Car_Kart_Abstract
+	{
+		scope = 2;
+		skinName = "Black";
+		hiddenSelectionsTextures[] = {"\a3\Soft_F_Kart\Kart_01\Data\Kart_01_base_black_CO.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_01_logos_black_CA.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_num_1_CA.paa","\a3\Soft_F_Kart\Kart_01\Data\Kart_num_3_CA.paa"};
 	};
 	class Offroad_01_civil_base_F;
 	class Exile_Car_Offroad_Abstract: Offroad_01_civil_base_F
@@ -53351,6 +53565,7 @@ class CfgVehicles
 	{
 		scope = 2;
 		skinName = "Police";
+		displayName = "Motor Boat (Police)";
 		class AnimationSources: AnimationSources
 		{
 			class Proxy
@@ -53402,12 +53617,14 @@ class CfgVehicles
 	{
 		scope = 2;
 		skinName = "Orange";
+		displayName = "Motor Boat (Orange)";
 		hiddenSelectionsTextures[] = {"\a3\boat_f_gamma\Boat_Civil_01\data\Boat_Civil_01_ext_rescue_co.paa","\a3\boat_f_gamma\Boat_Civil_01\data\Boat_Civil_01_int_rescue_co.paa"};
 	};
 	class Exile_Boat_MotorBoat_White: Exile_Boat_MotorBoat_Abstract
 	{
 		scope = 2;
 		skinName = "White";
+		displayName = "Motor Boat (White)";
 		textures[] = {"\a3\boat_f_gamma\Boat_Civil_01\data\Boat_Civil_01_ext_co.paa","\a3\boat_f_gamma\Boat_Civil_01\data\Boat_Civil_01_int_co.paa"};
 	};
 	class C_Rubberboat;
@@ -53436,30 +53653,35 @@ class CfgVehicles
 	{
 		scope = 2;
 		skinName = "CSAT";
+		displayName = "Rubber Duck (CSAT)";
 		hiddenSelectionsTextures[] = {"\A3\boat_F\Boat_Transport_01\data\Boat_Transport_01_OPFOR_CO.paa"};
 	};
 	class Exile_Boat_RubberDuck_Digital: Exile_Boat_RubberDuck_Abstract
 	{
 		scope = 2;
 		skinName = "Digital";
+		displayName = "Rubber Duck (Digital)";
 		hiddenSelectionsTextures[] = {"\A3\boat_F\Boat_Transport_01\data\Boat_Transport_01_INDP_CO.paa"};
 	};
 	class Exile_Boat_RubberDuck_Orange: Exile_Boat_RubberDuck_Abstract
 	{
 		scope = 2;
 		skinName = "Orange";
+		displayName = "Rubber Duck (Orange)";
 		hiddenSelectionsTextures[] = {"\A3\boat_F\Boat_Transport_01\data\Boat_Transport_01_rescue_CO.paa"};
 	};
 	class Exile_Boat_RubberDuck_Blue: Exile_Boat_RubberDuck_Abstract
 	{
 		scope = 2;
 		skinName = "Blue";
+		displayName = "Rubber Duck (Blue)";
 		hiddenSelectionsTextures[] = {"\A3\boat_F\Boat_Transport_01\data\Boat_Transport_01_civilian_CO.paa"};
 	};
 	class Exile_Boat_RubberDuck_Black: Exile_Boat_RubberDuck_Abstract
 	{
 		scope = 2;
 		skinName = "Black";
+		displayName = "Rubber Duck (Black)";
 		hiddenSelectionsTextures[] = {"\A3\boat_F\Boat_Transport_01\data\boat_transport_01_co.paa"};
 	};
 	class SDV_01_base_F;
@@ -53488,18 +53710,21 @@ class CfgVehicles
 	{
 		scope = 2;
 		skinName = "CSAT";
+		displayName = "SDV (CSAT)";
 		hiddenSelectionsTextures[] = {"\A3\boat_f_beta\SDV_01\data\SDV_ext_opfor_CO.paa"};
 	};
 	class Exile_Boat_SDV_Digital: Exile_Boat_SDV_Abstract
 	{
 		scope = 2;
 		skinName = "Digital";
+		displayName = "SDV (Digital)";
 		hiddenSelectionsTextures[] = {"\A3\boat_f_beta\SDV_01\data\SDV_ext_INDP_CO.paa"};
 	};
 	class Exile_Boat_SDV_Grey: Exile_Boat_SDV_Abstract
 	{
 		scope = 2;
 		skinName = "Grey";
+		displayName = "SDV (Grey)";
 		hiddenSelectionsTextures[] = {"\A3\boat_f_beta\SDV_01\data\SDV_ext_CO.paa"};
 	};
 	class GNT_C185;
@@ -53835,10 +54060,15 @@ class CfgXM8
 		controlID = 4090;
 		title = "Server Rules";
 	};
-	class territorySelect
+	class healthScanner
 	{
-		controlID = 4200;
-		title = "Territory Select";
+		controlID = 4120;
+		title = "Health Scanner";
+	};
+	class territory
+	{
+		controlID = 4130;
+		title = "Territory";
 	};
 };
 class Attributes;
@@ -53858,11 +54088,13 @@ class RscActiveText;
 class RscListBox;
 class RscListNBox;
 class RscCombo;
+class RscXListBox;
 class RscHTML;
 class RscPictureKeepAspect;
 class RscActivePicture;
 class RscMapControl;
 class RscControlsGroupNoScrollbars;
+class RscControlsGroupNoHScrollbars;
 class RscFrame;
 class RscTitle;
 class CA_Title;
@@ -55478,96 +55710,6 @@ class RscDisplayVoiceChat
 		};
 	};
 };
-class RscExileClanManagement
-{
-	idd = 24013;
-	onLoad = "uiNamespace setVariable ['RscExileClanManagement', _this select 0]";
-	onUnload = "call ExileClient_gui_clanManagementDialog_event_onUnload; uiNamespace setVariable ['RscExileClanManagement', displayNull]";
-	class controlsBackground
-	{
-		class DialogBackground: RscText
-		{
-			idc = 1000;
-			x = "8 * (0.025) + (0)";
-			y = "5 * (0.04) + (0)";
-			w = "24 * (0.025)";
-			h = "16 * (0.04)";
-			colorBackground[] = {0.05,0.05,0.05,0.7};
-		};
-		class DialogCaption: RscText
-		{
-			idc = 1001;
-			text = "Booty Lovers - Clan Management";
-			x = "8 * (0.025) + (0)";
-			y = "3.9 * (0.04) + (0)";
-			w = "24 * (0.025)";
-			h = "1 * (0.04)";
-			colorBackground[] = {0.1,0.1,0.1,1};
-		};
-	};
-	class controls
-	{
-		class MemberListBox: RscListBox
-		{
-			idc = 4000;
-			x = "8.5 * (0.025) + (0)";
-			y = "7 * (0.04) + (0)";
-			w = "16.5 * (0.025)";
-			h = "13.5 * (0.04)";
-			colorBackground[] = {1,1,1,0.1};
-			onLBSelChanged = "_this call ExileClient_gui_clanManagement_event_onMemberListBoxSelectionChanged";
-		};
-		class KickButton: RscButtonMenu
-		{
-			idc = 4001;
-			text = "Kick";
-			x = "25.5 * (0.025) + (0)";
-			y = "10 * (0.04) + (0)";
-			w = "6 * (0.025)";
-			h = "1 * (0.04)";
-			onMouseButtonClick = "_this call ExileClient_gui_clanManagementDialog_event_onKickButtonClick";
-		};
-		class PromoteButton: RscButtonMenu
-		{
-			idc = 4003;
-			text = "Promote";
-			x = "25.5 * (0.025) + (0)";
-			y = "8.5 * (0.04) + (0)";
-			w = "6 * (0.025)";
-			h = "1 * (0.04)";
-			onMouseButtonClick = "_this call ExileClient_gui_clanManagementDialog_event_onPromoteButtonClick";
-		};
-		class PartyButton: RscButtonMenu
-		{
-			idc = 4004;
-			text = "Party";
-			x = "25.5 * (0.025) + (0)";
-			y = "7 * (0.04) + (0)";
-			w = "6 * (0.025)";
-			h = "1 * (0.04)";
-			onMouseButtonClick = "_this call ExileClient_gui_clanManagementDialog_event_onPartyButtonClick";
-		};
-		class LeaveButton: RscButtonMenu
-		{
-			idc = 4002;
-			text = "Leave";
-			x = "25.5 * (0.025) + (0)";
-			y = "11.5 * (0.04) + (0)";
-			w = "6 * (0.025)";
-			h = "1 * (0.04)";
-			onMouseButtonClick = "_this call ExileClient_gui_clanManagementDialog_event_onLeaveButtonClick";
-		};
-		class CloseButton: RscButtonMenuCancel
-		{
-			text = "Close";
-			x = "25.5 * (0.025) + (0)";
-			y = "19.5 * (0.04) + (0)";
-			w = "6 * (0.025)";
-			h = "1 * (0.04)";
-			action = "closeDialog 0";
-		};
-	};
-};
 class RscExileCraftItemDialog
 {
 	idd = 24005;
@@ -56323,7 +56465,7 @@ class RscExileKeypad
 			sizeEx = "2 * (0.04)";
 			onMouseButtonClick = "_this call ExileClient_gui_keypadDialog_event_onDigitButtonClick";
 		};
-		class RscButton_1611: RscButton
+		class AbortButton: RscButton
 		{
 			idc = 4002;
 			text = "X";
@@ -56442,6 +56584,96 @@ class RscExileLoadingScreen
 			y = "10 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 		(safezoneY + (safezoneH - 					(			((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
 			w = "16 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
 			h = "0.2 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+	};
+};
+class RscExilePayTerritoryProtectionMoneyDialog
+{
+	idd = 20021;
+	onLoad = "uiNamespace setVariable ['RscExilePayTerritoryProtectionMoneyDialog', _this select 0]";
+	onUnload = "call ExileClient_gui_payTerritoryProtectionMoneyDialog_event_onUnload; uiNamespace setVariable ['RscExilePayTerritoryProtectionMoneyDialog', displayNull]";
+	class controlsBackground
+	{
+		class DialogBackground: RscText
+		{
+			idc = -1;
+			x = "10 * (0.025) + (0)";
+			y = "9 * (0.04) + (0)";
+			w = "20 * (0.025)";
+			h = "8 * (0.04)";
+			colorBackground[] = {0.05,0.05,0.05,0.7};
+		};
+		class DialogCation: RscText
+		{
+			idc = -1;
+			text = "Pay Territory Protection Money";
+			x = "10 * (0.025) + (0)";
+			y = "7.9 * (0.04) + (0)";
+			w = "20 * (0.025)";
+			h = "1 * (0.04)";
+			colorBackground[] = {0.1,0.1,0.1,1};
+		};
+		class TerritoryLabel: RscText
+		{
+			idc = -1;
+			text = "Choose the territory to pay for:";
+			x = "10.5 * (0.025) + (0)";
+			y = "9.5 * (0.04) + (0)";
+			w = "19 * (0.025)";
+			h = "1 * (0.04)";
+		};
+		class CurrencyLabel: RscText
+		{
+			idc = -1;
+			text = "Choose your payment method:";
+			x = "10.5 * (0.025) + (0)";
+			y = "12 * (0.04) + (0)";
+			w = "19 * (0.025)";
+			h = "1 * (0.04)";
+		};
+	};
+	class controls
+	{
+		class TerritoryDropDown: RscCombo
+		{
+			idc = 4001;
+			onLBSelChanged = "_this call ExileClient_gui_payTerritoryProtectionMoneyDialog_event_onTerritoryDropDownSelectionChanged";
+			x = "10.5 * (0.025) + (0)";
+			y = "10.5 * (0.04) + (0)";
+			w = "19 * (0.025)";
+			h = "1 * (0.04)";
+		};
+		class CancelButton: RscButtonMenuCancel
+		{
+			idc = -1;
+			action = "closeDialog 0";
+			x = "23.5 * (0.025) + (0)";
+			y = "15.5 * (0.04) + (0)";
+			w = "6 * (0.025)";
+			h = "1 * (0.04)";
+			colorText[] = {1,1,1,1};
+			colorBackground[] = {0,0,0,0.8};
+		};
+		class PayButton: RscButtonMenuOK
+		{
+			idc = 4002;
+			onMouseButtonClick = "_this call ExileClient_gui_payTerritoryProtectionMoneyDialog_event_onPayButtonClick";
+			text = "Pay Now";
+			x = "10.5 * (0.025) + (0)";
+			y = "15.5 * (0.04) + (0)";
+			w = "6 * (0.025)";
+			h = "1 * (0.04)";
+			colorText[] = {1,1,1,1};
+			colorBackground[] = {0,0,0,0.8};
+		};
+		class CurrencyDropDown: RscXListBox
+		{
+			idc = 4000;
+			onLBSelChanged = "_this call ExileClient_gui_payTerritoryProtectionMoneyDialog_event_onCurrencyDropDownSelectionChanged";
+			x = "10.5 * (0.025) + (0)";
+			y = "13 * (0.04) + (0)";
+			w = "19 * (0.025)";
+			h = "1 * (0.04)";
 		};
 	};
 };
@@ -58010,6 +58242,10 @@ class RscExileXM8Slide
 		show = "false";
 	};
 };
+class RscExileXM8Frame: RscText
+{
+	colorBackground[] = {255,255,255,0.1};
+};
 class RscExileXM8AppButton: RscButtonMenu
 {
 	type = 16;
@@ -58111,6 +58347,8 @@ class RscExileXM8Edit: RscEdit
 	shadow = 2;
 	style = "0x00 + 0x50";
 	type = 2;
+	onSetFocus = "_this call ExileClient_gui_xm8_event_onInputBoxFocus";
+	onKillFocus = "_this call ExileClient_gui_xm8_event_onInputBoxKillFocus";
 };
 class RscExileXM8Button: RscExileXM8AppButton1x1
 {
@@ -58284,18 +58522,18 @@ class RscExileXM8
 							idc = 1113;
 							x = "(23.5 - 3) * (0.025)";
 							y = "(9.5 - 2) * (0.04)";
-							textureNoShortcut = "\exile_client\texture\ui\xm8_app_user_ca.paa";
-							text = "User";
-							onButtonClick = "['Not yet implemented. Will come in a later version.', 'Okay :('] call ExileClient_gui_xm8_showWarning";
+							textureNoShortcut = "\exile_client\texture\ui\xm8_app_territory_ca.paa";
+							text = "Territory";
+							onButtonClick = "['territory', 0] call ExileClient_gui_xm8_slide";
 						};
 						class App05: RscExileXM8AppButton1x1
 						{
 							idc = 1104;
 							x = "(10.5 - 3) * (0.025)";
 							y = "(15 - 2) * (0.04)";
-							textureNoShortcut = "\exile_client\texture\ui\xm8_app_territory_ca.paa";
-							text = "Territory";
-							onButtonClick = "['Not yet implemented. Will come in a later version.', 'Okay :('] call ExileClient_gui_xm8_showWarning";
+							textureNoShortcut = "\exile_client\texture\ui\app_stats_scanner_co.paa";
+							text = "Health Scanner";
+							onButtonClick = "['healthScanner', 0] call ExileClient_gui_xm8_slide";
 						};
 						class App06: RscExileXM8AppButton1x1
 						{
@@ -58323,6 +58561,44 @@ class RscExileXM8
 							textureNoShortcut = "\exile_client\texture\ui\xm8_app_settings_ca.paa";
 							text = "Settings";
 							onButtonClick = "['settings', 0] call ExileClient_gui_xm8_slide";
+						};
+					};
+				};
+				class SlideHealthScanner: RscExileXM8Slide
+				{
+					idc = 4120;
+					show = "false";
+					class Controls
+					{
+						class GoBackButton: RscButtonMenu
+						{
+							idc = 4122;
+							text = "GO BACK";
+							x = "(29 - 3) * (0.025)";
+							y = "(18 - 2) * (0.04)";
+							w = "6 * (0.025)";
+							h = "1 * (0.04)";
+							onButtonClick = "['apps', 1] call ExileClient_gui_xm8_slide";
+						};
+						class HealthInfoControlGroup: RscControlsGroupNoHScrollbars
+						{
+							idc = -1;
+							x = "(5 - 3) * (0.025)";
+							y = "(5 - 2) * (0.04)";
+							w = "30 * (0.025)";
+							h = "12 * (0.04)";
+							colorBackground[] = {0,0,0,0.25};
+							class controls
+							{
+								class HealthInfo: RscStructuredText
+								{
+									idc = 4121;
+									x = 0;
+									y = 0;
+									w = "29 * (0.025)";
+									h = "12 * (0.04)";
+								};
+							};
 						};
 					};
 				};
@@ -58391,10 +58667,29 @@ class RscExileXM8
 						};
 						class 8GLabel: RscText
 						{
-							idc = 4073;
+							idc = -1;
 							text = "Show my device in global 8G network.";
 							x = "(13 - 3) * (0.025)";
 							y = "(5 - 2) * (0.04)";
+							w = "22 * (0.025)";
+							h = "1 * (0.04)";
+							shadow = 0;
+						};
+						class SoundDropDown: RscCombo
+						{
+							idc = 4075;
+							x = "(5 - 3) * (0.025)";
+							y = "(7 - 2) * (0.04)";
+							w = "7 * (0.025)";
+							h = "1 * (0.04)";
+							onLBSelChanged = "_this call ExileClient_gui_xm8_slide_settings_event_onSoundSelectionChanged";
+						};
+						class SoundLabel: RscText
+						{
+							idc = -1;
+							text = "Play a beep sound on notifications.";
+							x = "(13 - 3) * (0.025)";
+							y = "(7 - 2) * (0.04)";
 							w = "22 * (0.025)";
 							h = "1 * (0.04)";
 							shadow = 0;
@@ -58479,24 +58774,6 @@ class RscExileXM8
 							h = "1 * (0.04)";
 							onButtonClick = "['apps', 1] call ExileClient_gui_xm8_slide";
 						};
-						class PromoteButton: RscButtonMenu
-						{
-							idc = 4066;
-							text = "PROMOTE";
-							x = "(29 - 3) * (0.025)";
-							y = "(7 - 2) * (0.04)";
-							w = "6 * (0.025)";
-							h = "1 * (0.04)";
-						};
-						class DemoteButton: RscButtonMenu
-						{
-							idc = 4067;
-							text = "DEMOTE";
-							x = "(29 - 3) * (0.025)";
-							y = "(8.5 - 2) * (0.04)";
-							w = "6 * (0.025)";
-							h = "1 * (0.04)";
-						};
 					};
 				};
 				class SlideParty: RscExileXM8Slide
@@ -58555,31 +58832,179 @@ class RscExileXM8
 						class PlayersListBox: RscExileXM8ListBox
 						{
 							idc = 4111;
-							x = "(5 - 3) * (0.025)";
-							y = "(5 - 2) * (0.04)";
-							w = "22 * (0.025)";
+							x = "(5 - 3) * (0.025) + (0)";
+							y = "(5 - 2) * (0.04) + (0)";
+							w = "19 * (0.025)";
 							h = "14 * (0.04)";
 							onLBSelChanged = "_this call ExileClient_gui_xm8_slide_players_event_onPlayerListBoxSelectionChanged";
 						};
 						class PartyButton: RscButtonMenu
 						{
 							idc = 4112;
-							text = "PARTY UP";
-							x = "(29 - 3) * (0.025)";
-							y = "(5 - 2) * (0.04)";
-							w = "6 * (0.025)";
+							text = "INVITE TO PARTY";
+							x = "(26 - 3) * (0.025) + (0)";
+							y = "(5 - 2) * (0.04) + (0)";
+							w = "9 * (0.025)";
 							h = "1 * (0.04)";
 							onButtonClick = "_this spawn ExileClient_gui_xm8_slide_players_event_onPartyButtonClick";
+						};
+						class TerritoryGroup: RscExileXM8Frame
+						{
+							idc = -1;
+							x = "(26 - 3) * (0.025) + (0)";
+							y = "(7 - 2) * (0.04) + (0)";
+							w = "9 * (0.025)";
+							h = "4 * (0.04)";
+						};
+						class TerritoryGroupCaption: RscText
+						{
+							idc = -1;
+							text = "TERRITORY";
+							sizeEx = "11 * (safeZoneH / (getResolution select 1))";
+							font = "OrbitronLight";
+							colorText[] = {"252/255","253/255","255/255",1};
+							x = "(26 - 3) * (0.025) + (0)";
+							y = "(7 - 2) * (0.04) + (0)";
+							w = "9 * (0.025)";
+							h = "1 * (0.04)";
+							style = 2;
+						};
+						class TerritoryDropdown: RscCombo
+						{
+							idc = 4114;
+							x = "(26.5 - 3) * (0.025) + (0)";
+							y = "(8 - 2) * (0.04) + (0)";
+							w = "8 * (0.025)";
+							h = "1 * (0.04)";
+						};
+						class GrantTerritoryBuildRightsButton: RscButtonMenu
+						{
+							idc = 4115;
+							text = "GRANT RIGHTS";
+							x = "(26.5 - 3) * (0.025) + (0)";
+							y = "(9.5 - 2) * (0.04) + (0)";
+							w = "8 * (0.025)";
+							h = "1 * (0.04)";
+							onButtonClick = "_this spawn ExileClient_gui_xm8_slide_players_event_onGrantTerritoryButtonClick";
+						};
+						class SendPopTabGroup: RscExileXM8Frame
+						{
+							idc = -1;
+							x = "(26 - 3) * (0.025) + (0)";
+							y = "(12 - 2) * (0.04) + (0)";
+							w = "9 * (0.025)";
+							h = "4.5 * (0.04)";
+						};
+						class SendPopTabGroupCaption: RscText
+						{
+							idc = -1;
+							text = "SEND POP TABS";
+							sizeEx = "11 * (safeZoneH / (getResolution select 1))";
+							font = "OrbitronLight";
+							colorText[] = {"252/255","253/255","255/255",1};
+							x = "(26 - 3) * (0.025) + (0)";
+							y = "(12 - 2) * (0.04) + (0)";
+							w = "9 * (0.025)";
+							h = "1 * (0.04)";
+							style = 2;
+						};
+						class PopTabsInputBox: RscExileXM8Edit
+						{
+							idc = 4116;
+							x = "(26.5 - 3) * (0.025) + (0)";
+							y = "(13 - 2) * (0.04) + (0)";
+							w = "8 * (0.025)";
+							h = "1.5 * (0.04)";
+							colorBackground[] = {"41/255","39/255","46/255",1};
+							style = "0x02 + 0x50";
+							type = 2;
+							onChar = "_this call ExileClient_gui_xm8_slide_players_event_onPopTabsInputBoxChar";
+						};
+						class TransferPopTabsButton: RscButtonMenu
+						{
+							idc = 4117;
+							text = "TRANSFER";
+							x = "(26.5 - 3) * (0.025) + (0)";
+							y = "(15 - 2) * (0.04) + (0)";
+							w = "8 * (0.025)";
+							h = "1 * (0.04)";
+							onButtonClick = "_this spawn ExileClient_gui_xm8_slide_players_event_onSendPopTabsButtonClick";
 						};
 						class GoBackButton: RscButtonMenu
 						{
 							idc = 4113;
+							text = "GO BACK";
+							x = "(26 - 3) * (0.025) + (0)";
+							y = "(18 - 2) * (0.04) + (0)";
+							w = "9 * (0.025)";
+							h = "1 * (0.04)";
+							onButtonClick = "['apps', 1] call ExileClient_gui_xm8_slide";
+						};
+					};
+				};
+				class SlideTerritory: RscExileXM8Slide
+				{
+					idc = 4130;
+					show = "false";
+					class Controls
+					{
+						class TerritoryDropdown: RscCombo
+						{
+							idc = 4132;
+							x = "(5 - 3) * (0.025) + (0)";
+							y = "(5 - 2) * (0.04) + (0)";
+							w = "22 * (0.025)";
+							h = "1 * (0.04)";
+							onLBSelChanged = "_this call ExileClient_gui_xm8_slide_territory_event_onTerritoryDropdownSelectionChanged";
+						};
+						class PlayersListBox: RscListBox
+						{
+							idc = 4131;
+							x = "(5 - 3) * (0.025) + (0)";
+							y = "(6.5 - 2) * (0.04) + (0)";
+							w = "22 * (0.025)";
+							h = "11.5 * (0.04)";
+							onLBSelChanged = "_this call ExileClient_gui_xm8_slide_territory_event_onPlayerListBoxSelectionChanged";
+						};
+						class InfoText: RscText
+						{
+							idc = 4133;
+							text = "";
+							x = "(5 - 3) * (0.025) + (0)";
+							y = "(18 - 2) * (0.04) + (0)";
+							w = "22 * (0.025)";
+							h = "1 * (0.04)";
+							colorBackground[] = {0,0,0,0.8};
+						};
+						class GoBackButton: RscButtonMenu
+						{
+							idc = -1;
 							text = "GO BACK";
 							x = "(29 - 3) * (0.025)";
 							y = "(18 - 2) * (0.04)";
 							w = "6 * (0.025)";
 							h = "1 * (0.04)";
 							onButtonClick = "['apps', 1] call ExileClient_gui_xm8_slide";
+						};
+						class KickButton: RscButtonMenu
+						{
+							idc = 4134;
+							text = "KICK";
+							x = "(29 - 3) * (0.025) + (0)";
+							y = "(6.5 - 2) * (0.04) + (0)";
+							w = "6 * (0.025)";
+							h = "1 * (0.04)";
+							onButtonClick = "_this spawn ExileClient_gui_xm8_slide_territory_event_onKickButtonClick";
+						};
+						class LeaveButton: RscButtonMenu
+						{
+							idc = 4135;
+							text = "LEAVE";
+							x = "(29 - 3) * (0.025) + (0)";
+							y = "(5 - 2) * (0.04) + (0)";
+							w = "6 * (0.025)";
+							h = "1 * (0.04)";
+							onButtonClick = "_this spawn ExileClient_gui_xm8_slide_territory_event_onLeaveButtonClick";
 						};
 					};
 				};
@@ -59567,6 +59992,150 @@ class RscTitles
 				shadow = 0;
 				show = "false";
 				colorText[] = {1,1,1,1};
+			};
+		};
+	};
+	class RscExileNotification
+	{
+		idd = 20020;
+		onLoad = "uiNamespace setVariable ['RscExileExileNotification', _this select 0];";
+		onUnload = "uiNamespace setVariable ['RscExileExileNotification', displayNull]";
+		duration = 999999;
+		class controls
+		{
+			class Background: RscText
+			{
+				idc = 4000;
+				x = "1.004167 * safezoneW + safezoneX";
+				y = "0.786 * safezoneH + safezoneY";
+				w = "0.166146 * safezoneW";
+				h = "0.077 * safezoneH";
+				colorBackground[] = {"19/255","22/255","27/255",0.8};
+			};
+			class Icon: RscPictureKeepAspect
+			{
+				idc = 4002;
+				text = "";
+				x = "1.009896 * safezoneW + safezoneX";
+				y = "0.797 * safezoneH + safezoneY";
+				w = "0.034375 * safezoneW";
+				h = "0.055 * safezoneH";
+			};
+			class Message: RscStructuredText
+			{
+				idc = 4001;
+				x = "1.05 * safezoneW + safezoneX";
+				y = "0.797 * safezoneH + safezoneY";
+				w = "0.120313 * safezoneW";
+				h = "0.055 * safezoneH";
+			};
+			class Background1: Background
+			{
+				idc = "4000 + 10";
+			};
+			class Icon1: Icon
+			{
+				idc = "4002 + 10";
+			};
+			class Message1: Message
+			{
+				idc = "4001 + 10";
+			};
+			class Background2: Background
+			{
+				idc = "4000 + 20";
+			};
+			class Icon2: Icon
+			{
+				idc = "4002 + 20";
+			};
+			class Message2: Message
+			{
+				idc = "4001 + 20";
+			};
+			class Background3: Background
+			{
+				idc = "4000 + 30";
+			};
+			class Icon3: Icon
+			{
+				idc = "4002 + 30";
+			};
+			class Message3: Message
+			{
+				idc = "4001 + 30";
+			};
+			class Background4: Background
+			{
+				idc = "4000 + 40";
+			};
+			class Icon4: Icon
+			{
+				idc = "4002 + 40";
+			};
+			class Message4: Message
+			{
+				idc = "4001 + 40";
+			};
+			class Background5: Background
+			{
+				idc = "4000 + 50";
+			};
+			class Icon5: Icon
+			{
+				idc = "4002 + 50";
+			};
+			class Message5: Message
+			{
+				idc = "4001 + 50";
+			};
+			class Background6: Background
+			{
+				idc = "4000 + 60";
+			};
+			class Icon6: Icon
+			{
+				idc = "4002 + 60";
+			};
+			class Message6: Message
+			{
+				idc = "4001 + 60";
+			};
+			class Background7: Background
+			{
+				idc = "4000 + 70";
+			};
+			class Icon7: Icon
+			{
+				idc = "4002 + 70";
+			};
+			class Message7: Message
+			{
+				idc = "4001 + 70";
+			};
+			class Background8: Background
+			{
+				idc = "4000 + 80";
+			};
+			class Icon8: Icon
+			{
+				idc = "4002 + 80";
+			};
+			class Message8: Message
+			{
+				idc = "4001 + 80";
+			};
+			class Background9: Background
+			{
+				idc = "4000 + 90";
+			};
+			class Icon9: Icon
+			{
+				idc = "4002 + 90";
+			};
+			class Message9: Message
+			{
+				idc = "4001 + 90";
 			};
 		};
 	};

@@ -7,7 +7,13 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_object"];
+private["_object","_result"];
+disableSerialization;
 _object = _this select 0;
-["moveConstructionRequest",[netId _object]] call ExileClient_system_network_send;
+_result = ["Do you really want to move this object?", "Move?", "Yes", "Nah"] call BIS_fnc_guiMessage;
+waitUntil { !isNil "_result" };
+if( _result)then
+{
+	["moveConstructionRequest",[netId _object]] call ExileClient_system_network_send;
+};
 true

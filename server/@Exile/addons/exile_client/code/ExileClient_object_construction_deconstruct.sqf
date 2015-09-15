@@ -7,7 +7,12 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_object"];
+private["_object","_result"];
 _object = _this select 0;
-["deconstructConstructionRequest",[netId _object]] call ExileClient_system_network_send;
+_result = ["Do you really want to deconstruct this object?", "Deconstruct?", "Yes", "Nah"] call BIS_fnc_guiMessage;
+waitUntil { !isNil "_result" };
+if(_result)then
+{
+	["deconstructConstructionRequest",[netId _object]] call ExileClient_system_network_send;
+};
 true

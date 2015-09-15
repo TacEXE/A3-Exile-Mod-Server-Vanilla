@@ -13,10 +13,10 @@ _objectClass = _this select 1;
 if(_response)then
 {
 	_objectClass call ExileClient_construction_beginExistingObject;
-	systemChat format ["Object Owned by you! Moving ALLOWED!"];
+	["Success",["Object Owned by you! Moving ALLOWED!"]] call ExileClient_gui_notification_event_addNotification;
 }
 else
 {
-	systemChat format ["Object Owned by NOT you! Moving DISALOWED!"];
+	["Whoops",["Object Owned by NOT you! Moving DISALOWED!"]] call ExileClient_gui_notification_event_addNotification;
 };
 true

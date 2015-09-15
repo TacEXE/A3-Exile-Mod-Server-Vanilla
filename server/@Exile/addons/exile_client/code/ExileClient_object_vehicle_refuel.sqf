@@ -16,7 +16,7 @@ _override = false;
 	_fuelDetails = _vehicle call ExileClient_util_fuel_getRealFuel;
 	if((_fuelDetails select 0) isEqualTo (_fuelDetails select 1))exitWith
 	{
-		["VehicleRefulingFailedFull"] call BIS_fnc_showNotification;
+		["VehicleRefulingFailedFull"] call ExileClient_gui_notification_event_addNotification;
 		_override = true;
 	};
 	if((_x select 0) isEqualTo "Exile_Item_FuelCanisterFull")then
@@ -58,13 +58,13 @@ if(_removed)then
 	{
 		["setFuelRequest",[netId _vehicle,_amount]] call ExileClient_system_network_send;
 	};
-	["VehicleRefuled", [format ["Vehicle refuled for: %1L",_amount]]] call BIS_fnc_showNotification;
+	["VehicleRefuled", [format ["Vehicle refuled for: %1L",_amount]]] call ExileClient_gui_notification_event_addNotification;
 }
 else
 {
 	if!(_override)then
 	{
-		["VehicleRefulingFailed"] call BIS_fnc_showNotification;
+		["VehicleRefulingFailed"] call ExileClient_gui_notification_event_addNotification;
 	};
 };
 true
