@@ -1,0 +1,1 @@
+In this folder the "exile_client.pbo" is important. I unpacked it and debinarised the config.bin to config.cpp so you will be able to edit it. After you're done pack the exile_client folder back into exile_client.pbo and delete the folder.
