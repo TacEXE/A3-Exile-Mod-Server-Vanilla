@@ -1,12 +1,3 @@
-////////////////////////////////////////////////////////////////////
-//DeRap: Produced from mikero's Dos Tools Dll version 5.20
-//Produced on Sun Aug 30 19:36:54 2015 : Created on Sun Aug 30 19:36:54 2015
-//http://dev-heaven.net/projects/list_files/mikero-pbodll
-////////////////////////////////////////////////////////////////////
-
-#define _ARMA_
-
-//Class C:\Users\TacEXE\Desktop\@Exile\addons\exile_client\config.bin{
 class CfgPatches
 {
 	class exile_client
@@ -60140,4 +60131,3 @@ class RscTitles
 		};
 	};
 };
-//};
