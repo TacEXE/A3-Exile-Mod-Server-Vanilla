@@ -7,10 +7,10 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_newPlayerMoney","_senderName","_transferAmount","_recipientName"];
+private["_newPlayerMoney","_senderName","_transferAmount"];
 _newPlayerMoney = parseNumber (_this select 0);
 _senderName = _this select 1;
 _transferAmount = _newPlayerMoney - ExileClientPlayerMoney;
 ExileClientPlayerMoney = _newPlayerMoney;
-["MoneyReceived", [_transferAmount, _recipientName]] call ExileClient_gui_notification_event_addNotification;
+["MoneyReceived", [_transferAmount, _senderName]] call ExileClient_gui_notification_event_addNotification;
 true

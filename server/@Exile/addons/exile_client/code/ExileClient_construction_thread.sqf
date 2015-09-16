@@ -12,7 +12,7 @@ scriptName 'Exile Construction Thread';
 ("ExileClientConstructionModeLayer" call BIS_fnc_rscLayer) cutRsc ["RscExileConstructionMode", "PLAIN", 1, false]; 
 ExileClientIsInConstructionMode = true;
 ExileClientConstructionResult = 0;
-ExileClientConstructionStartPosition = getPos player;
+ExileClientConstructionStartPosition = getPosATL player;
 _boundingBox = boundingBoxReal ExileClientConstructionObject;
 _boundingBoxMinimum = _boundingBox select 0;
 _boundingBoxMaximum = _boundingBox select 1;
@@ -74,7 +74,7 @@ while {ExileClientConstructionResult isEqualTo 0} do
 				{
 					ExileClientConstructionPossibleSnapPositions = [];
 					ExileClientConstructionCurrentSnapToObject = objNull;
-					_position = getPos player;
+					_position = getPosATL player;
 					_position set [2, -500]; 
 					_rotation = (ExileClientConstructionRotation + (getDir player) + 360) % 360;
 					_vectorDirection = [sin(_rotation), cos(_rotation), 0]; 
@@ -204,7 +204,7 @@ while {ExileClientConstructionResult isEqualTo 0} do
 		ExileClientConstructionObject setObjectTextureGlobal[3, _objectColor];
 		_materialColor = _objectColor;
 	};
-	if (ExileClientConstructionStartPosition distance (getPos player) > 20) then
+	if (ExileClientConstructionStartPosition distance (getPosATL player) > 20) then
 	{
 		ExileClientConstructionResult = 3;
 	};

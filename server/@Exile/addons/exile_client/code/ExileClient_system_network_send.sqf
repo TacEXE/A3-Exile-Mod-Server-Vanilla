@@ -7,9 +7,9 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_messageName","_messageParameters"];
+private["_messageName","_messageParameters","_publicMessage"];
 _messageName = _this select 0;
 _messageParameters = [_this, 1, [] , [[]] ] call BIS_fnc_param;
-PublicMessage = [ExileClientSessionId, _messageName, _messageParameters];
-publicVariableServer "PublicMessage";
-PublicMessage = nil;
+_publicMessage = [ExileClientSessionId, _messageName, _messageParameters];
+_publicMessage remoteExecCall ["ExileServer_system_network_dispatchIncomingMessage", 2];
+_publicMessage = nil;

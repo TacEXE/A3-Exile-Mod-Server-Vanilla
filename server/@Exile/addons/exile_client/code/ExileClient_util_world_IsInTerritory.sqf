@@ -7,13 +7,13 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_position","_result","_maxRange","_objects","_distance","_radius"];
+private["_position","_result","_maxRange","_flags","_distance","_radius"];
 _position = _this;
 _result = false;
 _maxRange = getArray(missionConfigFile >> "CfgTerritories" >> "prices");
-_maxRange = (_maxRange select ((count _maxRange) -1)) select 1;
-_objects = _position nearObjects ["Exile_Construction_Flag_Static", _maxRange * 2];
-if !(_objects isEqualTo []) then
+_maxRange = (_maxRange select ((count _maxRange) - 1)) select 1;
+_flags = _position nearObjects ["Exile_Construction_Flag_Static", _maxRange * 2];
+if !(_flags isEqualTo []) then
 {
 	{
 		_distance = (getPosATL _x) distance2D _position;
@@ -23,6 +23,6 @@ if !(_objects isEqualTo []) then
 			_result = true;
 		};
 	}	
-	forEach _objects;
+	forEach _flags;
 };
 _result

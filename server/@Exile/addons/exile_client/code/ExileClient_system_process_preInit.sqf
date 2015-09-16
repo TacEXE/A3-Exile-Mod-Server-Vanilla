@@ -88,7 +88,6 @@ else
 			[] spawn 
 			{
 				waitUntil { !(isNull player) };
-				"PublicMessage" addPublicVariableEventHandler compileFinal "(_this select 1) call ExileClient_system_network_dispatchIncomingMessage;";
 				[] execFSM "exile_client\fsm\login.fsm";
 				true
 			};

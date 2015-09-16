@@ -12,6 +12,10 @@ _newPlayerObject = _this;
 _oldPlayerObject = player;
 player reveal [_newPlayerObject, 4];
 selectPlayer _newPlayerObject;
+if (_oldPlayerObject isKindOf "Exile_Unit_GhostPlayer") then 
+{
+	deleteVehicle _oldPlayerObject;
+};
 player setVariable ["ExileXM8IsOnline", (profileNamespace getVariable ["ExileEnable8GNetwork", false]), true];
 enableSentences false;
 enableRadio false;

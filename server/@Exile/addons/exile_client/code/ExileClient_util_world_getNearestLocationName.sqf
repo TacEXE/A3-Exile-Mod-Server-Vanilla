@@ -9,7 +9,7 @@
  
 private["_position","_radius","_locationTypes","_locations","_locationName","_location"];
 _position = _this select 0;
-_radius = [_this, 1, 1000] call BIS_fnc_param; 
+_radius = [_this, 1, 500] call BIS_fnc_param; 
 _locationTypes = 
 [
 	"ExileTerritory",

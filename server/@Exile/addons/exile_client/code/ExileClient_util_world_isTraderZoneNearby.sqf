@@ -7,13 +7,18 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_position","_radius","_isNearby","_triggers"];
+private["_position","_radius","_isNearby"];
 _position = _this;
 _radius = 1000;
 _isNearby = false;
-_triggers = _position nearObjects ["EmptyDetector", _radius];
-if !(_triggers isEqualTo []) then
 {
-	_isNearby = true;
-};
+	if (getMarkerType _x == "ExileTraderZone") then
+	{
+		if ((getMarkerPos _x) distance2D _position < _radius) exitWith
+		{
+			_isNearby = true;
+		};
+	};
+}
+forEach allMapMarkers;
 _isNearby

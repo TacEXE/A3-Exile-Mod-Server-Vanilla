@@ -11,8 +11,15 @@ private["_object","_result"];
 _object = _this select 0;
 _result = ["Do you really want to deconstruct this object?", "Deconstruct?", "Yes", "Nah"] call BIS_fnc_guiMessage;
 waitUntil { !isNil "_result" };
-if(_result)then
+if (_result) then
 {
-	["deconstructConstructionRequest",[netId _object]] call ExileClient_system_network_send;
+	if (ExileClientPlayerIsInCombat) then
+	{
+		["ConstructionAbortedCombat"] call BIS_fnc_showNotification;
+	}
+	else
+	{
+		["deconstructConstructionRequest", [netId _object]] call ExileClient_system_network_send;
+	};
 };
 true

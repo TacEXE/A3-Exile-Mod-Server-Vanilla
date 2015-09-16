@@ -15,7 +15,7 @@ try
 	{
 		player reveal _x;
 	}
-	forEach ((getPos player) nearObjects  ["Exile_Construction_Abstract_Static", 13]);
+	forEach ((getPosATL player) nearObjects  ["Exile_Construction_Abstract_Static", 13]);
 	_object = cursorTarget;
 	if (isNull _object) then { throw false; };
 	if (_object isEqualTo ExileClientInteractionObject) then 
@@ -23,7 +23,7 @@ try
 	}
 	else 
 	{
-		if (_object distance player > 5) then { throw false; };
+		if (_object distance player > 10) then { throw false; };
 		call ExileClient_gui_interactionMenu_unhook;
 		_object call ExileClient_gui_interactionMenu_hook;
 	};

@@ -7,16 +7,11 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_position","_radius","_result","_objectsNearby"];
-_position = _this select 0;
-_radius = _this select 1;
-_result = false;
-_objectsNearby = _position nearObjects _radius;
+private["_object"];
+_object = _this select 1;
+if!(isNull _object)then
 {
-	if (inflamed _x) exitWith
-	{
-		_result = true;
-	};
-}
-forEach _objectsNearby;
-_result
+	_object setVariable ["ExileAllreadyKnownCode",_this select 2];
+};
+(_this select 0) call ExileClient_gui_notification_event_addNotification;
+true

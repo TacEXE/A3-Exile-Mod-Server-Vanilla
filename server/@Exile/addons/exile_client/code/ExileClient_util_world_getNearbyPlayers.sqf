@@ -7,16 +7,15 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_position","_radius","_result","_objectsNearby"];
+private["_position","_radius","_players"];
 _position = _this select 0;
 _radius = _this select 1;
-_result = false;
-_objectsNearby = _position nearObjects _radius;
+_players = [];
 {
-	if (inflamed _x) exitWith
+	if ((_x distance2D _position) < _radius) then
 	{
-		_result = true;
+		_players pushBack _x;
 	};
 }
-forEach _objectsNearby;
-_result
+forEach allPlayers;
+_players

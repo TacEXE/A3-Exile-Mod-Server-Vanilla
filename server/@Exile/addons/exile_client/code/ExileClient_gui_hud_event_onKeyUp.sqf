@@ -14,7 +14,7 @@ _keyCode = _this select 1;
 _shiftState = _this select 2;
 _controlState = _this select 3;
 _altState = _this select 4;
-if (_keyCode in (actionKeys 'TacticalView'))exitWith{true};
+if (_keyCode in (actionKeys 'TacticalView')) exitWith {true};
 if (_keyCode in (actionKeys 'User1') && !(_keyCode isEqualTo 0x02)) exitWith {call ExileClient_object_vehicle_interaction_keyLock};
 switch (_keyCode) do  
 { 

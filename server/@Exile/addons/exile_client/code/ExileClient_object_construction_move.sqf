@@ -12,8 +12,15 @@ disableSerialization;
 _object = _this select 0;
 _result = ["Do you really want to move this object?", "Move?", "Yes", "Nah"] call BIS_fnc_guiMessage;
 waitUntil { !isNil "_result" };
-if( _result)then
+if (_result) then
 {
-	["moveConstructionRequest",[netId _object]] call ExileClient_system_network_send;
+	if (ExileClientPlayerIsInCombat) then
+	{
+		["ConstructionAbortedCombat"] call BIS_fnc_showNotification;
+	}
+	else
+	{
+		["moveConstructionRequest", [netId _object]] call ExileClient_system_network_send;
+	};
 };
 true
