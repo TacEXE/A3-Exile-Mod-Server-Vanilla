@@ -22,5 +22,5 @@ if (_responseCode isEqualTo 0) then
 }
 else 
 {
-	systemChat format["Failed to purchase vehicle: %1", _responseCode];
+	["Whoops", [format["Failed to purchase vehicle: %1", _responseCode]]] call ExileClient_gui_notification_event_addNotification;
 };
