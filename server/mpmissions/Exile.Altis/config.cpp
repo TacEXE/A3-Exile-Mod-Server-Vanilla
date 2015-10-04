@@ -1014,6 +1014,7 @@ class CfgExileArsenal
 	class NVGoggles									{ quality = 2; price = 100; };
 	class NVGoggles_INDEP							{ quality = 2; price = 100; };
 	class NVGoggles_OPFOR							{ quality = 2; price = 100; };
+	class Exile_Item_XM8							{ quality = 2; price = 20; };
 
 	///////////////////////////////////////////////////////////////////////////////
 	// Rebreather
@@ -1118,7 +1119,7 @@ class CfgExileArsenal
 	class 30Rnd_65x39_caseless_green_mag_Tracer 	{ quality = 2; price = 30; };
 	class 30Rnd_65x39_caseless_mag 					{ quality = 1; price = 20; };
 	class 30Rnd_65x39_caseless_mag_Tracer 			{ quality = 2; price = 30; };
-	class 30Rnd_9x21_Mag 							{ quality = 1; price = 10; };
+	class 30Rnd_9x21_Mag 							{ quality = 1; price = 40; };
 	class 5Rnd_127x108_APDS_Mag 					{ quality = 2; price = 50; };
 	class 5Rnd_127x108_Mag 							{ quality = 1; price = 40; };
 	class 6Rnd_45ACP_Cylinder 						{ quality = 1; price = 8; };
@@ -1577,7 +1578,7 @@ class CfgExileCustomCode
 
 		Example:
 
-		ExileClient_util_fusRoDah = "myaddon/myfunction.sqf";
+		ExileClient_util_fusRoDah = "myaddon\myfunction.sqf";
 	*/
 };
 class CfgExileMusic
@@ -1613,11 +1614,23 @@ class CfgTerritories
 		{50000,	150}  // Level 10
 	};
 
-	noNeedForTerritory[] = 
-	{
-		"Exile_Construction_CampFire_Preview",
-		"Exile_Construction_CamoTent_Preview"
-	};
+	// A shortcut of the above maximum radius
+	maximumRadius = 150;
+
+	// The above * 2 plus coverving the 20m you can move while placing things
+	minimumDistanceToOtherTerritories = 325; 
+
+	/**
+	 * Defines the minimum distance to safe zones / trader cities where players
+	 * cannot build territories
+	 */
+	minimumDistanceToTraderZones = 1000;
+
+	/**
+	 * Defines the minimum distance to spawn zones where players
+	 * cannot build territories
+	 */
+	minimumDistanceToSpawnZones = 1000;
 
 	// Defines the period in days where protection money needs to be payed.
 	// Every time you pay the protection money, the "due date" will be
@@ -2055,7 +2068,8 @@ class CfgTraderCategories
 			"ItemMap",
 			"ItemCompass",
 			"ItemRadio",
-			"ItemWatch"
+			"ItemWatch",
+			"Exile_Item_XM8"
 		};
 	};
 
